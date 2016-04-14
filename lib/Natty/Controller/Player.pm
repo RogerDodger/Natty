@@ -42,22 +42,15 @@ sub add {
 sub list {
    my $c = shift;
 
-
-   my $mode = $c->db('Mode')->find_maybe($c->param('mode') || 1);
-   die "???" unless $mode;
+   my $mode = $c->db('Mode')->find_maybe($c->param('mode') || 1)
+      or return $c->reply->exception("Unknown mode");
 
    $c->stash(
       modes => $c->db('Mode')->search_rs({}, {
          order_by => { -asc => 'id' },
       }),
       mode => $mode,
-      ratings => $mode->ratings->with_theta->search_rs({}, {
-         prefetch => 'player',
-         order_by => [
-            { -desc => 'theta' },
-            { -asc  => 'player.tag_normalised' },
-         ]
-      }),
+      ratings => $c->db('RatingX')->search_rs({}, { bind => [ $mode->id ] }),
    );
 
    $c->render;

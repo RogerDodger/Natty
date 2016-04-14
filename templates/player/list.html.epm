@@ -16,6 +16,7 @@
       <tr>
          <th>Rank</th>
          <th>Player</th>
+         <th>Games</th>
          <th>&theta;</th>
          <th>&mu;</th>
          <th>&sigma;<sup>2</sup></th>
@@ -29,7 +30,8 @@
          % $j = $i if !$prev || $prev->theta != $rating->theta;
          % $prev = $rating;
          <td class="Players-rank">{{= $j }}</td>
-         <td class="Players-tag">{{= $rating->player->tag }}</td>
+         <td class="Players-tag">{{= $rating->player_tag }}</td>
+         <td class="Players-games">{{= $rating->games }}</td>
          % for my $v ($rating->theta, $rating->mu, $rating->sigma ** 2) {
             <td class="Players-rating" data-precise="{{= sprintf "%.5f", $v }}">{{= sprintf "%.2f", $v }}</td>
          % }

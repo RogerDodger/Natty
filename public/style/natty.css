@@ -401,15 +401,17 @@ body {
   .Players th {
     white-space: nowrap; }
 
-.Players-rating {
+.Players-rating,
+.Players-games {
   width: 6.5rem; }
-  .Players-rating:hover {
-    font-size: 0; }
-    .Players-rating:hover::after {
-      font-size: 1rem;
-      content: attr(data-precise); }
 
-.Players-rating:not(:nth-child(3)) {
+.Players-rating:hover {
+  font-size: 0; }
+  .Players-rating:hover::after {
+    font-size: 1rem;
+    content: attr(data-precise); }
+
+.Players-rating:not(:nth-child(4)) {
   color: #888; }
 
 .Players-rank {
