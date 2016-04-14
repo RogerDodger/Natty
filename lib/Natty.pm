@@ -22,7 +22,12 @@ sub startup {
 
    $self->config({
       dsn => 'dbi:SQLite:site/natty.db',
-      now => Natty::DateTime->now,
+   });
+
+   $self->hook(before_dispatch => sub {
+      my $c = shift;
+
+      $c->stash->{now} = Natty::DateTime->now;
    });
 
    $self->helper(db => sub {

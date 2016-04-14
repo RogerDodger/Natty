@@ -117,6 +117,14 @@ body {
    margin: 1em 0;
 }
 
+.Game + .Game {
+   margin-top: 2em;
+}
+
+.Games .Divider {
+   margin: 2em auto;
+}
+
 .Game-scheduled {
    text-align: center;
    font-size: 1.2em;
@@ -169,28 +177,60 @@ body {
    font-size: 1.2em;
    text-align: center;
 
-   input {
-      width: 4em;
+   input[type="text"] {
+      background: transparent;
       border: 0;
       outline: 0;
-      background: transparent;
       text-align: center;
+      width: 4em;
    }
 }
 
 .Team-players {
    display: table;
-   margin: 0 auto;
+   margin: 0.3em auto;
 }
 
 .Team-player {
    display: table-row;
+
+   & > :first-child {
+      padding-left: 0.8rem;
+   }
+
+   & > :last-child {
+      padding-right: 0.8rem;
+   }
 }
 
 .Team-player--name,
-.Team-player--rating {
+.Team-player--rating,
+.Team-player--delta {
    display: table-cell;
+   vertical-align: middle;
+   white-space: nowrap;
+}
+
+.Team-player--delta {
+   font-size: 0.85em;
+}
+
+.Team-player--rating,
+.Team-player--delta {
+   padding: 0.4em 0.2em;
+}
+
+.Team-player--name {
+   width: 100%;
    padding: 0.4em 0.8em;
+}
+
+.Game-score--submit {
+   input {
+      @include button($hue: 27, $sat: 80%);
+   }
+
+   text-align: center;
 }
 
 .Game-creaters {

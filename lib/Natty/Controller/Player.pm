@@ -1,5 +1,6 @@
 package Natty::Controller::Player;
 use Mojo::Base 'Mojolicious::Controller';
+use Natty::Rating;
 use feature qw/fc/;
 
 sub add {
@@ -24,8 +25,8 @@ sub add {
       for my $mode ($c->db('Mode')->all) {
          $player->create_related('ratings', {
             mode_id => $mode->id,
-            mu => 25,
-            sigma => sqrt(25/3),
+            mu => Natty::Rating::MU_INIT,
+            sigma => Natty::Rating::SIGMA_INIT,
          });
       }
 

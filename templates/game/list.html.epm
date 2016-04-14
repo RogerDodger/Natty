@@ -1,43 +1,21 @@
 % layout 'default';
 % title 'Games';
 
-<div class="Games">
-% for my $game ($games->all) {
-   <div class="Game">
-      <div class="Game-scheduled">{{= $game->scheduled->strftime('%b %d %H:%m') }}</div>
-
-      <div class="Teams">
-      % for my $team ($game->teams) {
-         <div class="Team {{= $team->color }}">
-            <div class="Team-score">
-               % if (user() && !$game->finished) {
-                  <input type="text" name="team{{= $team->id }}" placeholder="0000">
-               % } else {
-                  %= $team->score // b('&mdash;');
-               %}
-            </div>
-
-            <div class="Team-players">
-            % for my $player ($team->playersx->all) {
-               <div class="Team-player">
-                  <div class="Team-player--name">{{= $player->tag }}</div>
-                  <div class="Team-player--rating">{{= sprintf "%.2f", $player->theta_orig }}</div>
-               </div>
-            % }
-            </div>
-         </div>
-      % }
-      </div>
-   </div>
-% }
-</div>
-
 % if (user()) {
 <fieldset class="Admin-fields">
    <legend>Admin</legend>
    <ul class="Game-creaters">
-      <li><a href="/game/draw">Create draw</a></li>
       <li><a href="{{= url_for 'gamecreate' }}">Create game</a></li>
    </ul>
 </fieldset>
 % }
+
+<div class="Games">
+% for my $game ($active->all) {
+   %= include 'game/single', game => $game;
+% }
+%= b('<div class="Divider"></div>') if $active->count && $finished->count;
+% for my $game ($finished->all) {
+   %= include 'game/single', game => $game;
+% }
+</div>

@@ -48,11 +48,7 @@ a {
 .Table {
   width: 100%; }
   .Table > tbody > tr > td {
-    padding: 0.8em 0.4em; }
-    .Table > tbody > tr > td:first-child {
-      padding-left: 0.8em; }
-    .Table > tbody > tr > td:last-child {
-      padding-right: 0.8em; }
+    padding: 0.8em; }
   .Table > thead, .Table > tbody {
     border: 1px solid #d0dce2; }
   .Table.sortable > thead > tr > th:not(:empty):hover {
@@ -62,15 +58,11 @@ a {
     border-bottom: 1px solid #9cbac9;
     font-size: 1.07em; }
     .Table > thead > tr > th {
-      padding: 0.6em 0.3em;
+      padding: 0.6em;
       font-weight: normal;
       letter-spacing: 0.04em;
       text-align: center;
       text-shadow: 1px 0 1px #cccccc; }
-      .Table > thead > tr > th:first-child {
-        padding-left: 0.6em; }
-      .Table > thead > tr > th:last-child {
-        padding-right: 0.6em; }
   .Table.grid > thead > tr > th, .Table.grid > tbody > tr > td {
     border-right: 1px solid #d0dce2;
     border-left: 1px solid #d0dce2; }
@@ -158,7 +150,7 @@ a {
   .Flash p:not(:first-child) {
     margin-top: 1em; }
 
-.noselect, .Table.sortable > thead > tr > th, .Table-button:disabled, .Table-button.selected, .Form input[type="submit"]:disabled, .Form input[type="submit"].selected, .Players.sortable > thead > tr > th, .Game-creaters li a:disabled, .Game-creaters li a.selected {
+.noselect, .Table.sortable > thead > tr > th, .Table-button:disabled, .Table-button.selected, .Form input[type="submit"]:disabled, .Form input[type="submit"].selected, .Players.sortable > thead > tr > th, .Game-score--submit input:disabled, .Game-score--submit input.selected, .Game-creaters li a:disabled, .Game-creaters li a.selected {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   khtml-user-select: none;
@@ -315,7 +307,7 @@ body {
 
 .Site-header--container {
   margin: 0 auto;
-  max-width: 48em; }
+  max-width: 54em; }
   .Site-header--container ul {
     display: inline-block;
     list-style-type: none;
@@ -340,7 +332,7 @@ body {
 
 .Site-content {
   margin: 0 auto;
-  max-width: 48em; }
+  max-width: 54em; }
 
 .Admin-fields {
   margin: 1em 0; }
@@ -358,11 +350,7 @@ body {
   width: 100%;
   margin: 1em 0; }
   .Players > tbody > tr > td {
-    padding: 0.8em 0.4em; }
-    .Players > tbody > tr > td:first-child {
-      padding-left: 0.8em; }
-    .Players > tbody > tr > td:last-child {
-      padding-right: 0.8em; }
+    padding: 0.8em; }
   .Players > thead, .Players > tbody {
     border: 1px solid #d0dce2; }
   .Players.sortable > thead > tr > th:not(:empty):hover {
@@ -372,15 +360,11 @@ body {
     border-bottom: 1px solid #9cbac9;
     font-size: 1.07em; }
     .Players > thead > tr > th {
-      padding: 0.6em 0.3em;
+      padding: 0.6em;
       font-weight: normal;
       letter-spacing: 0.04em;
       text-align: center;
       text-shadow: 1px 0 1px #cccccc; }
-      .Players > thead > tr > th:first-child {
-        padding-left: 0.6em; }
-      .Players > thead > tr > th:last-child {
-        padding-right: 0.6em; }
   .Players.grid > thead > tr > th, .Players.grid > tbody > tr > td {
     border-right: 1px solid #d0dce2;
     border-left: 1px solid #d0dce2; }
@@ -434,6 +418,12 @@ body {
 .Game {
   margin: 1em 0; }
 
+.Game + .Game {
+  margin-top: 2em; }
+
+.Games .Divider {
+  margin: 2em auto; }
+
 .Game-scheduled {
   text-align: center;
   font-size: 1.2em;
@@ -469,24 +459,68 @@ body {
   padding: 0.3em;
   font-size: 1.2em;
   text-align: center; }
-  .Team-score input {
-    width: 4em;
+  .Team-score input[type="text"] {
+    background: transparent;
     border: 0;
     outline: 0;
-    background: transparent;
-    text-align: center; }
+    text-align: center;
+    width: 4em; }
 
 .Team-players {
   display: table;
-  margin: 0 auto; }
+  margin: 0.3em auto; }
 
 .Team-player {
   display: table-row; }
+  .Team-player > :first-child {
+    padding-left: 0.8rem; }
+  .Team-player > :last-child {
+    padding-right: 0.8rem; }
 
 .Team-player--name,
-.Team-player--rating {
+.Team-player--rating,
+.Team-player--delta {
   display: table-cell;
+  vertical-align: middle;
+  white-space: nowrap; }
+
+.Team-player--delta {
+  font-size: 0.85em; }
+
+.Team-player--rating,
+.Team-player--delta {
+  padding: 0.4em 0.2em; }
+
+.Team-player--name {
+  width: 100%;
   padding: 0.4em 0.8em; }
+
+.Game-score--submit {
+  text-align: center; }
+  .Game-score--submit input {
+    border-style: solid;
+    border-width: 1px;
+    display: inline-block;
+    line-height: 1;
+    padding: 0.6em 0.8em;
+    text-decoration: none;
+    vertical-align: middle;
+    background: #f5c8a3;
+    border-color: #eb9147;
+    color: #492608; }
+    .Game-score--submit input:not(:disabled):not(.selected):hover {
+      cursor: pointer;
+      text-decoration: none; }
+    .Game-score--submit input:not(:disabled):not(.selected):hover {
+      background: #f3bd91; }
+    .Game-score--submit input:not(:disabled):not(.selected):active {
+      box-shadow: 0 0.5em 0.7em #f1b27e inset; }
+    .Game-score--submit input:disabled, .Game-score--submit input.selected {
+      background: #dacbbe;
+      border-color: #b6967c;
+      color: #34281d; }
+      .Game-score--submit input:disabled:hover, .Game-score--submit input.selected:hover {
+        cursor: default; }
 
 .Game-creaters {
   list-style-type: none;

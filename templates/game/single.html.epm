@@ -1,0 +1,48 @@
+<div class="Game">
+   <div class="Game-scheduled">{{= $game->scheduled->strftime('%b %d %H:%M') }}</div>
+
+   % my $form = user() && !$game->finalised;
+   % if ($form) {
+   <form method="post" action="{{= url_for 'game-score', { id => $game->id } }}">
+   % }
+      <div class="Teams">
+      % for my $team ($game->teams) {
+         <div class="Team {{= $team->color }}">
+            <div class="Team-score">
+               % if ($form) {
+                  <input type="text" name="team{{= $team->id }}"
+                     autocomplete="off" maxlength="5"
+                     placeholder="0000" pattern="^[0-9]+$"
+                     value="{{= $team->score }}" required>
+               % } else {
+                  %= $team->score // b('&mdash;');
+               %}
+            </div>
+
+            <div class="Team-players">
+            % for my $player ($team->playersx->all) {
+               <div class="Team-player">
+                  <div class="Team-player--name">{{= $player->tag }}</div>
+                  <div class="Team-player--rating">
+                     {{= sprintf "%.2f", $player->mu }}
+
+                  </div>
+                  % if ($player->theta_delta) {
+                  <div class="Team-player--delta">
+                     {{= sprintf "%+.2f", $player->mu_delta }}
+                  </div>
+                  % }
+               </div>
+            % }
+            </div>
+         </div>
+      % }
+      </div>
+
+   % if ($form) {
+      <div class="Game-score--submit">
+         <input type="submit" value="Submit scores">
+      </div>
+   </form>
+   % }
+</div>
