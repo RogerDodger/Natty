@@ -1,0 +1,54 @@
+% layout 'default';
+% title 'Players';
+
+<ul class="Modes">
+   % for my $m ($modes->all) {
+      % if ($m->id != $mode->id) {
+         <li><a href="{{= url_for()->query({ mode => $m->id }) }}">{{= $m->name }}</a>
+      % } else {
+         <li><strong>{{= $m->name }}</strong>
+      % }
+   % }
+</ul>
+
+<table class="Players">
+   <thead>
+      <tr>
+         <th>Rank</th>
+         <th>Player</th>
+         <th>&theta;</th>
+         <th>&mu;</th>
+         <th>&sigma;<sup>2</sup></th>
+      </tr>
+   </thead>
+   <tbody>
+      % my ($i, $j, $prev) = (0, 0);
+      % for my $rating ($ratings->all) {
+      <tr>
+         % $i++;
+         % $j = $i if !$prev || $prev->theta != $rating->theta;
+         % $prev = $rating;
+         <td class="Players-rank">{{= $j }}</td>
+         <td class="Players-tag">{{= $rating->player->tag }}</td>
+         % for my $v ($rating->theta, $rating->mu, $rating->sigma ** 2) {
+            <td class="Players-rating" data-precise="{{= sprintf "%.5f", $v }}">{{= sprintf "%.2f", $v }}</td>
+         % }
+      </tr>
+      % }
+   </tbody>
+</table>
+
+% if (user()) {
+<fieldset class="Admin-fields">
+   <legend>Admin</legend>
+   <form class="Form" method="post" action="/player/add">
+      <div class="Form-item">
+         <textarea cols="1" rows="3" type="text" name="tags" placeholder="Player tags" required></textarea>
+      </div>
+
+      <div class="Form-item">
+         <input type="submit" value="Add players">
+      </div>
+   </form>
+</fieldset>
+% }

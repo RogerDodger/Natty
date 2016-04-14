@@ -1,0 +1,416 @@
+// =============================================================================
+// Context-independent components, mostly mixins
+// =============================================================================
+
+@mixin button-base {
+   border-style: solid;
+   border-width: 1px;
+   display: inline-block;
+   line-height: 1;
+   padding: 0.6em 0.8em;
+   text-decoration: none;
+   vertical-align: middle;
+
+   &:not(:disabled):not(.selected):hover {
+      cursor: pointer;
+      text-decoration: none;
+   }
+}
+
+@mixin button-color($hue: 200, $sat: 30%, $l: 80%, $invert: 0) {
+   background: hsla($hue, $sat, $l, 1);
+   border-color: hsla($hue, $sat, $l * .75, 1);
+
+   @if $invert == 1 {
+      color: hsla($hue, $sat, 100% - ($l * .1), 1);
+      text-shadow: -0.05em -0.05em hsla($hue, $sat, $l * .5, 1);
+   } @else {
+      color: hsla($hue, $sat, $l * .2, 1);
+   }
+
+   &:not(:disabled):not(.selected) {
+      &:hover {
+         background: hsla($hue, $sat, $l * .95, 1);
+      }
+
+      &:active {
+         box-shadow: 0 0.5em 0.7em hsla($hue, $sat, $l * .9, 1) inset;
+      }
+   }
+
+   &:disabled,
+   &.selected {
+      @extend .noselect;
+      background: hsla($hue, $sat * .35, $l, 1);
+      border-color: hsla($hue, $sat * .35, $l * .75, 1);
+      color: hsla($hue, $sat * .35, $l * .2, 1);
+
+      &:hover {
+         cursor: default;
+      }
+   }
+}
+
+@mixin button($hue: 200, $sat: 30%, $l: 80%, $invert: 0) {
+   @include button-base;
+   @include button-color($hue, $sat, $l, $invert);
+}
+
+@mixin button-group($hue: 200, $sat: 30%, $l: 80%, $invert: 0) {
+   list-style-type: none;
+   padding: 0;
+
+   li {
+      display: inline-block;
+
+      &:not(:last-child) {
+         margin-right: -1px;
+         margin-bottom: -1px;
+      }
+
+      a {
+         @include button($hue, $sat, $l, $invert);
+      }
+   }
+}
+
+@mixin divider($hue: 0, $sat: 0%, $l: 60%) {
+   $bg: hsla($hue, $sat, $l, 1);
+   display: block;
+   background: linear-gradient(to right, transparent 0%, $bg 10%, $bg 90%, transparent 100%);
+   width: 80%;
+   height: 1px;
+   margin: 1.2em auto;
+}
+
+.Divider {
+   @include divider;
+}
+
+@mixin box {
+   box-shadow: 0 0 3px #b6b6b6;
+}
+
+@mixin sheet {
+   background-color: hsla(0, 0%, 98%, 1);
+}
+
+@mixin table-divider {
+   background-color: transparent;
+   border: none;
+
+   & > tr {
+      background-color: transparent !important;
+
+      & > td {
+         padding: 0;
+         width: 100%;
+
+         &:before {
+            @include divider;
+            content: " ";
+         }
+      }
+   }
+}
+
+@mixin cell-padding($padding: 0.8em) {
+   padding: $padding ($padding / 2);
+
+   &:first-child {
+      padding-left: $padding;
+   }
+
+   &:last-child {
+      padding-right: $padding;
+   }
+}
+
+@mixin striped($hue, $sat, $reverse: 0) {
+   &:nth-child(odd) {
+      background-color: hsla($hue, $sat + (100% - $sat) * .14, 96% - (2% * $reverse), 1);
+   }
+
+   &:nth-child(even) {
+      background-color: hsla($hue, $sat + (100% - $sat) * .14, 94% + (2% * $reverse), 1);
+   }
+}
+
+@mixin striped-table($hue: 200, $sat: 30%) {
+   width: 100%;
+   $border-color: hsla($hue, $sat * .8, 85%, 1);
+   $td-pad: 0.8em;
+   $th-pad: 0.6em;
+
+   & > tbody > tr > td {
+      @include cell-padding($td-pad);
+   }
+
+
+   & > thead,
+   & > tbody {
+      border: 1px solid $border-color;
+   }
+
+   &.sortable > thead > tr > th {
+      @extend .noselect;
+
+      &:not(:empty):hover {
+         cursor: pointer;
+      }
+   }
+
+   & > thead {
+      background-color: hsla($hue, $sat, 93%, 1);
+      border-bottom: 1px solid hsla($hue, $sat, 70%, 1);
+      font-size: 1.07em;
+
+      & > tr > th {
+         @include cell-padding($th-pad);
+         font-weight: normal;
+         letter-spacing: 0.04em;
+         text-align: center;
+         text-shadow: 1px 0 1px hsla(0, 0%, 80%, 1);
+      }
+   }
+
+   &.grid {
+      & > thead > tr > th,
+      & > tbody > tr > td {
+         border-right: 1px solid $border-color;
+         border-left: 1px solid $border-color;
+      }
+
+      & > thead > tr > th {
+         padding: $th-pad;
+      }
+
+      & > tbody > tr > td {
+         padding: $td-pad;
+      }
+   }
+
+   & > thead + tbody > tr {
+      @include striped($hue, $sat);
+   }
+
+   & > tbody > tr {
+      @include striped($hue, $sat, 1);
+   }
+
+   & > .Table-divider {
+      @include table-divider;
+   }
+}
+
+.Table {
+   @include striped-table;
+}
+
+@mixin table-button($hue: 200, $sat: 30%, $l: 97%) {
+   @include button($hue, $sat, $l);
+   padding: 0.4em;
+   font-size: 0.8em;
+}
+
+.Table-button {
+   @include table-button;
+}
+
+.Clarify {
+   position: relative;
+   bottom: 0.5em;
+   font-size: 0.8em;
+}
+
+.Countdown {
+   font-size: 1.2em;
+   margin: 1em 0;
+   text-align: center;
+}
+
+@mixin tint($hue: 200, $sat: 50%, $l: 88%) {
+   background: hsla($hue, $sat, $l, 1);
+   border: 0.1em solid hsla($hue, $sat, $l * 0.8, 1);
+   color: hsla($hue, $sat, $l * 0.25, 1);
+}
+
+.Flash {
+   font-size: 0.8em;
+
+   &.big {
+      font-size: 0.9em;
+   }
+
+   padding: 1em;
+   margin: 1em 0;
+
+   @include tint;
+   &.error {
+      @include tint($hue: 0);
+   }
+
+   p {
+      margin: 0;
+   }
+
+   p:not(:first-child) {
+      margin-top: 1em;
+   }
+}
+
+.noselect {
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+.Form {
+   label {
+      color: #666;
+      display: block;
+      font-weight: bold;
+      font-size: 0.85em;
+      font-variant: small-caps;
+      text-shadow: 0 1px 1px #fff;
+   }
+
+   input[type="text"],
+   input[type="password"],
+   input[type="email"],
+   input[type="url"],
+   input[type="number"],
+   input[type="search"],
+   input[type="datetime"],
+   textarea,
+   select {
+      background: hsla(0, 0%, 99%, 1);
+      border: 1px solid #aaa;
+      padding: 0.25em;
+      border-radius: 0.25em;
+      width: 100%;
+   }
+
+   input[type="checkbox"] {
+      vertical-align: middle;
+
+      & + label {
+         display: inline;
+      }
+   }
+
+   textarea {
+      margin-bottom: 0;
+   }
+
+   input[type="submit"] {
+      @include button($hue: 120, $sat: 50%);
+      font-size: 1.03em;
+   }
+
+   *[disabled] {
+      background-color: hsla(0, 0%, 90%, 1);
+   }
+}
+
+.Form-item:not(:first-of-type) {
+   margin-top: 1em;
+}
+
+.Form-group {
+   @extend .clearfix;
+
+   &:first-of-type > .Form-item {
+      margin-top: 0;
+   }
+
+   & > div {
+      float: left;
+      width: 100%;
+
+      &:not(:first-child) {
+         padding-left: 0.5em;
+      }
+
+      &:not(:last-child) {
+         padding-right: 0.5em;
+      }
+
+      @media #{$mobile} {
+         padding: 0 !important;
+      }
+   }
+
+   &.two > div {
+      width: 50%;
+   }
+
+   &.three > div {
+      width: 33.33%;
+   }
+
+   @media #{$mobile} {
+      & > div {
+         width: 100% !important;
+         padding: 0 !important;
+      }
+   }
+}
+
+.Form-note {
+   color: #666;
+   font-size: 0.85em;
+   margin-top: 0.1em;
+}
+
+.Form-caption--container {
+   position: relative;
+}
+
+.Form-caption {
+   font-size: 0.9em;
+   color: hsla(0, 0%, 50%, 1);
+   position: absolute;
+   right: 1.5em;
+   top: 0.23em;
+}
+
+.Form-error {
+   box-shadow: 0 0 0.25em red;
+}
+
+@mixin bbcode {
+   hr,
+   blockquote,
+   div {
+      display: inline-block;
+      width: 100%;
+   }
+
+   .Spoiler:not(:hover) {
+      background-color: #444;
+
+      &,
+      & > a,
+      & > span {
+         color: #444 !important;
+      }
+   }
+}
+
+.Breakdown {
+   cursor: pointer;
+}
+
+.Breakdown-row {
+   td {
+      padding-top: 0 !important;
+   }
+
+   table {
+      font-size: 0.9em;
+   }
+}

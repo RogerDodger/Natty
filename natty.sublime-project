@@ -1,0 +1,23 @@
+{
+   "folders":
+   [
+      {
+         "path": "."
+      }
+   ],
+   "settings":
+   {
+      "ensure_newline_at_eof_on_save": true,
+      "trim_trailing_white_space_on_save": true,
+      "tab_size": 3,
+      "translate_tabs_to_spaces": true
+   },
+   "build_systems":
+   [
+      {
+         "name": "Natty-sass",
+         "cmd": ["./build.sh"],
+         "selector": "source.scss"
+      }
+   ]
+}

@@ -1,0 +1,523 @@
+* {
+  box-sizing: border-box; }
+
+table {
+  border-collapse: collapse;
+  word-wrap: break-word; }
+
+/* Light selection rather than dark with inverted text */
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none; }
+::selection {
+  background: #b3d4fc;
+  text-shadow: none; }
+
+/* More sensible positioning behaviour for img elements */
+img {
+  vertical-align: middle; }
+
+/* Resizing horizontally is unncessary and can cause ugliness */
+textarea {
+  resize: vertical; }
+
+/* Link behaviour appropriate in more contexts */
+a {
+  text-decoration: none; }
+  a:hover {
+    text-decoration: underline; }
+
+/* Make placeholder text consistent across browsers */
+::-webkit-input-placeholder {
+  color: #999; }
+::-moz-placeholder {
+  color: #999; }
+:-ms-input-placeholder {
+  color: #999; }
+::placeholder {
+  color: #999; }
+
+.Divider {
+  display: block;
+  background: -webkit-linear-gradient(left, transparent 0%, #999999 10%, #999999 90%, transparent 100%);
+  background: linear-gradient(to right, transparent 0%, #999999 10%, #999999 90%, transparent 100%);
+  width: 80%;
+  height: 1px;
+  margin: 1.2em auto; }
+
+.Table {
+  width: 100%; }
+  .Table > tbody > tr > td {
+    padding: 0.8em 0.4em; }
+    .Table > tbody > tr > td:first-child {
+      padding-left: 0.8em; }
+    .Table > tbody > tr > td:last-child {
+      padding-right: 0.8em; }
+  .Table > thead, .Table > tbody {
+    border: 1px solid #d0dce2; }
+  .Table.sortable > thead > tr > th:not(:empty):hover {
+    cursor: pointer; }
+  .Table > thead {
+    background-color: #e8eff3;
+    border-bottom: 1px solid #9cbac9;
+    font-size: 1.07em; }
+    .Table > thead > tr > th {
+      padding: 0.6em 0.3em;
+      font-weight: normal;
+      letter-spacing: 0.04em;
+      text-align: center;
+      text-shadow: 1px 0 1px #cccccc; }
+      .Table > thead > tr > th:first-child {
+        padding-left: 0.6em; }
+      .Table > thead > tr > th:last-child {
+        padding-right: 0.6em; }
+  .Table.grid > thead > tr > th, .Table.grid > tbody > tr > td {
+    border-right: 1px solid #d0dce2;
+    border-left: 1px solid #d0dce2; }
+  .Table.grid > thead > tr > th {
+    padding: 0.6em; }
+  .Table.grid > tbody > tr > td {
+    padding: 0.8em; }
+  .Table > thead + tbody > tr:nth-child(odd) {
+    background-color: #f1f6f9; }
+  .Table > thead + tbody > tr:nth-child(even) {
+    background-color: #eaf2f6; }
+  .Table > tbody > tr:nth-child(odd) {
+    background-color: #eaf2f6; }
+  .Table > tbody > tr:nth-child(even) {
+    background-color: #f1f6f9; }
+  .Table > .Table-divider {
+    background-color: transparent;
+    border: none; }
+    .Table > .Table-divider > tr {
+      background-color: transparent !important; }
+      .Table > .Table-divider > tr > td {
+        padding: 0;
+        width: 100%; }
+        .Table > .Table-divider > tr > td:before {
+          display: block;
+          background: -webkit-linear-gradient(left, transparent 0%, #999999 10%, #999999 90%, transparent 100%);
+          background: linear-gradient(to right, transparent 0%, #999999 10%, #999999 90%, transparent 100%);
+          width: 80%;
+          height: 1px;
+          margin: 1.2em auto;
+          content: " "; }
+
+.Table-button {
+  border-style: solid;
+  border-width: 1px;
+  display: inline-block;
+  line-height: 1;
+  padding: 0.6em 0.8em;
+  text-decoration: none;
+  vertical-align: middle;
+  background: #f5f8fa;
+  border-color: #a5c0ce;
+  color: #233640;
+  padding: 0.4em;
+  font-size: 0.8em; }
+  .Table-button:not(:disabled):not(.selected):hover {
+    cursor: pointer;
+    text-decoration: none; }
+  .Table-button:not(:disabled):not(.selected):hover {
+    background: #e5edf1; }
+  .Table-button:not(:disabled):not(.selected):active {
+    box-shadow: 0 0.5em 0.7em #d5e2e8 inset; }
+  .Table-button:disabled, .Table-button.selected {
+    background: #f7f8f8;
+    border-color: #b2bcc1;
+    color: #2c3337; }
+    .Table-button:disabled:hover, .Table-button.selected:hover {
+      cursor: default; }
+
+.Clarify {
+  position: relative;
+  bottom: 0.5em;
+  font-size: 0.8em; }
+
+.Countdown {
+  font-size: 1.2em;
+  margin: 1em 0;
+  text-align: center; }
+
+.Flash {
+  font-size: 0.8em;
+  padding: 1em;
+  margin: 1em 0;
+  background: #d1e5f0;
+  border: 0.1em solid #8ec0d9;
+  color: #1c4154; }
+  .Flash.big {
+    font-size: 0.9em; }
+  .Flash.error {
+    background: #f0d1d1;
+    border: 0.1em solid #d98e8e;
+    color: #541c1c; }
+  .Flash p {
+    margin: 0; }
+  .Flash p:not(:first-child) {
+    margin-top: 1em; }
+
+.noselect, .Table.sortable > thead > tr > th, .Table-button:disabled, .Table-button.selected, .Form input[type="submit"]:disabled, .Form input[type="submit"].selected, .Players.sortable > thead > tr > th, .Game-creaters li a:disabled, .Game-creaters li a.selected {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+          user-select: none; }
+
+.Form label {
+  color: #666;
+  display: block;
+  font-weight: bold;
+  font-size: 0.85em;
+  font-variant: small-caps;
+  text-shadow: 0 1px 1px #fff; }
+.Form input[type="text"],
+.Form input[type="password"],
+.Form input[type="email"],
+.Form input[type="url"],
+.Form input[type="number"],
+.Form input[type="search"],
+.Form input[type="datetime"],
+.Form textarea,
+.Form select {
+  background: #fcfcfc;
+  border: 1px solid #aaa;
+  padding: 0.25em;
+  border-radius: 0.25em;
+  width: 100%; }
+.Form input[type="checkbox"] {
+  vertical-align: middle; }
+  .Form input[type="checkbox"] + label {
+    display: inline; }
+.Form textarea {
+  margin-bottom: 0; }
+.Form input[type="submit"] {
+  border-style: solid;
+  border-width: 1px;
+  display: inline-block;
+  line-height: 1;
+  padding: 0.6em 0.8em;
+  text-decoration: none;
+  vertical-align: middle;
+  background: #b3e6b3;
+  border-color: #66cc66;
+  color: #143d14;
+  font-size: 1.03em; }
+  .Form input[type="submit"]:not(:disabled):not(.selected):hover {
+    cursor: pointer;
+    text-decoration: none; }
+  .Form input[type="submit"]:not(:disabled):not(.selected):hover {
+    background: #a3e0a3; }
+  .Form input[type="submit"]:not(:disabled):not(.selected):active {
+    box-shadow: 0 0.5em 0.7em #94db94 inset; }
+  .Form input[type="submit"]:disabled, .Form input[type="submit"].selected {
+    background: #c3d5c3;
+    border-color: #87ab87;
+    color: #223022; }
+    .Form input[type="submit"]:disabled:hover, .Form input[type="submit"].selected:hover {
+      cursor: default; }
+.Form *[disabled] {
+  background-color: #e6e6e6; }
+
+.Form-item:not(:first-of-type) {
+  margin-top: 1em; }
+
+.Form-group:first-of-type > .Form-item {
+  margin-top: 0; }
+.Form-group > div {
+  float: left;
+  width: 100%; }
+  .Form-group > div:not(:first-child) {
+    padding-left: 0.5em; }
+  .Form-group > div:not(:last-child) {
+    padding-right: 0.5em; }
+  @media (max-width: 40rem) {
+    .Form-group > div {
+      padding: 0 !important; } }
+.Form-group.two > div {
+  width: 50%; }
+.Form-group.three > div {
+  width: 33.33%; }
+@media (max-width: 40rem) {
+  .Form-group > div {
+    width: 100% !important;
+    padding: 0 !important; } }
+
+.Form-note {
+  color: #666;
+  font-size: 0.85em;
+  margin-top: 0.1em; }
+
+.Form-caption--container {
+  position: relative; }
+
+.Form-caption {
+  font-size: 0.9em;
+  color: gray;
+  position: absolute;
+  right: 1.5em;
+  top: 0.23em; }
+
+.Form-error {
+  box-shadow: 0 0 0.25em red; }
+
+.Breakdown {
+  cursor: pointer; }
+
+.Breakdown-row td {
+  padding-top: 0 !important; }
+.Breakdown-row table {
+  font-size: 0.9em; }
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.clearfix:before, .Form-group:before, .Site-header:before,
+.clearfix:after,
+.Form-group:after,
+.Site-header:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */ }
+
+.clearfix:after, .Form-group:after, .Site-header:after {
+  clear: both; }
+
+/*
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.clearfix, .Form-group, .Site-header {
+  *zoom: 1; }
+
+body {
+  background-color: #fbfdfe;
+  color: #222;
+  font-size: 100%; }
+
+.Site-header {
+  background-color: white;
+  border-bottom: 0.15em solid #b3b3b3;
+  padding: 0.3em;
+  margin-bottom: 1em; }
+
+.Site-header--container {
+  margin: 0 auto;
+  max-width: 48em; }
+  .Site-header--container ul {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0; }
+    .Site-header--container ul li {
+      display: inline-block;
+      padding: 0.2em 0.6em; }
+      .Site-header--container ul li a {
+        text-decoration: none;
+        color: inherit; }
+      .Site-header--container ul li a:hover {
+        color: blue; }
+    .Site-header--container ul .Site-logo a {
+      font-weight: bold; }
+
+.Site-header--global {
+  float: left; }
+
+.Site-header--user {
+  float: right; }
+
+.Site-content {
+  margin: 0 auto;
+  max-width: 48em; }
+
+.Admin-fields {
+  margin: 1em 0; }
+
+.Modes {
+  list-style-type: none;
+  margin: 1em 0;
+  padding: 0;
+  text-align: center; }
+  .Modes li {
+    display: inline-block;
+    padding: 0 1em; }
+
+.Players {
+  width: 100%;
+  margin: 1em 0; }
+  .Players > tbody > tr > td {
+    padding: 0.8em 0.4em; }
+    .Players > tbody > tr > td:first-child {
+      padding-left: 0.8em; }
+    .Players > tbody > tr > td:last-child {
+      padding-right: 0.8em; }
+  .Players > thead, .Players > tbody {
+    border: 1px solid #d0dce2; }
+  .Players.sortable > thead > tr > th:not(:empty):hover {
+    cursor: pointer; }
+  .Players > thead {
+    background-color: #e8eff3;
+    border-bottom: 1px solid #9cbac9;
+    font-size: 1.07em; }
+    .Players > thead > tr > th {
+      padding: 0.6em 0.3em;
+      font-weight: normal;
+      letter-spacing: 0.04em;
+      text-align: center;
+      text-shadow: 1px 0 1px #cccccc; }
+      .Players > thead > tr > th:first-child {
+        padding-left: 0.6em; }
+      .Players > thead > tr > th:last-child {
+        padding-right: 0.6em; }
+  .Players.grid > thead > tr > th, .Players.grid > tbody > tr > td {
+    border-right: 1px solid #d0dce2;
+    border-left: 1px solid #d0dce2; }
+  .Players.grid > thead > tr > th {
+    padding: 0.6em; }
+  .Players.grid > tbody > tr > td {
+    padding: 0.8em; }
+  .Players > thead + tbody > tr:nth-child(odd) {
+    background-color: #f1f6f9; }
+  .Players > thead + tbody > tr:nth-child(even) {
+    background-color: #eaf2f6; }
+  .Players > tbody > tr:nth-child(odd) {
+    background-color: #eaf2f6; }
+  .Players > tbody > tr:nth-child(even) {
+    background-color: #f1f6f9; }
+  .Players > .Table-divider {
+    background-color: transparent;
+    border: none; }
+    .Players > .Table-divider > tr {
+      background-color: transparent !important; }
+      .Players > .Table-divider > tr > td {
+        padding: 0;
+        width: 100%; }
+        .Players > .Table-divider > tr > td:before {
+          display: block;
+          background: -webkit-linear-gradient(left, transparent 0%, #999999 10%, #999999 90%, transparent 100%);
+          background: linear-gradient(to right, transparent 0%, #999999 10%, #999999 90%, transparent 100%);
+          width: 80%;
+          height: 1px;
+          margin: 1.2em auto;
+          content: " "; }
+  .Players td {
+    text-align: center; }
+  .Players th {
+    white-space: nowrap; }
+
+.Players-rating {
+  width: 6.5rem; }
+  .Players-rating:hover {
+    font-size: 0; }
+    .Players-rating:hover::after {
+      font-size: 1rem;
+      content: attr(data-precise); }
+
+.Players-rating:not(:nth-child(3)) {
+  color: #888; }
+
+.Players-rank {
+  width: 1px; }
+
+.Game {
+  margin: 1em 0; }
+
+.Game-scheduled {
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 0.5em; }
+
+.Teams {
+  text-align: center; }
+
+.Team {
+  border-width: 0.12em;
+  border-style: solid;
+  display: inline-block;
+  margin: 0.5em 1em;
+  min-width: 12em;
+  text-align: center; }
+  .Team.red {
+    background: #e6b3b3; }
+    .Team.red, .Team.red .Team-score {
+      border-color: #cc6666; }
+  .Team.green {
+    background: #b3e6b3; }
+    .Team.green, .Team.green .Team-score {
+      border-color: #66cc66; }
+  .Team.blue {
+    background: #b3b3e6; }
+    .Team.blue, .Team.blue .Team-score {
+      border-color: #6666cc; }
+
+.Team-score {
+  border-bottom-width: 0.07em;
+  border-bottom-style: solid;
+  margin: 0.3em;
+  padding: 0.3em;
+  font-size: 1.2em;
+  text-align: center; }
+  .Team-score input {
+    width: 4em;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    text-align: center; }
+
+.Team-players {
+  display: table;
+  margin: 0 auto; }
+
+.Team-player {
+  display: table-row; }
+
+.Team-player--name,
+.Team-player--rating {
+  display: table-cell;
+  padding: 0.4em 0.8em; }
+
+.Game-creaters {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; }
+  .Game-creaters li {
+    display: inline-block; }
+    .Game-creaters li:not(:last-child) {
+      margin-right: -1px;
+      margin-bottom: -1px; }
+    .Game-creaters li a {
+      border-style: solid;
+      border-width: 1px;
+      display: inline-block;
+      line-height: 1;
+      padding: 0.6em 0.8em;
+      text-decoration: none;
+      vertical-align: middle;
+      background: #bdd1db;
+      border-color: #7aa3b8;
+      color: #1d2d35; }
+      .Game-creaters li a:not(:disabled):not(.selected):hover {
+        cursor: pointer;
+        text-decoration: none; }
+      .Game-creaters li a:not(:disabled):not(.selected):hover {
+        background: #afc8d4; }
+      .Game-creaters li a:not(:disabled):not(.selected):active {
+        box-shadow: 0 0.5em 0.7em #a2bfcd inset; }
+      .Game-creaters li a:disabled, .Game-creaters li a.selected {
+        background: #c7ced1;
+        border-color: #8e9da4;
+        color: #252a2d; }
+        .Game-creaters li a:disabled:hover, .Game-creaters li a.selected:hover {
+          cursor: default; }

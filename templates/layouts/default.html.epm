@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+
+      <title>{{= title }} • Natty</title>
+
+      <link rel="stylesheet" href="/style/normalize.css">
+      <link rel="stylesheet" href="/style/natty.css">
+   </head>
+   <body>
+      <nav class="Site-header">
+         <div class="Site-header--container">
+            <ul class="Site-header--global">
+               <li class="Site-logo"><a href="/">Natty</a>
+               <li><a href="/players">Players</a>
+            </ul>
+
+            <ul class="Site-header--user">
+            % if (user) {
+               <li>{{= user()->name }}
+               <li><a href="/logout">Logout</a>
+            % } else {
+               <li><a href="/login">Login</a>
+            % }
+            </ul>
+         </div>
+      </nav>
+      <div class="Site-content">
+         % if (flash 'error_msg') {
+         <div class="Flash error">
+            {{= flash 'error_msg' }}
+         </div>
+         % }
+
+         {{= content }}
+      </div>
+   </body>
+</html>

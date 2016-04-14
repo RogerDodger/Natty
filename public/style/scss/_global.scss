@@ -1,0 +1,48 @@
+
+// =============================================================================
+// Styles applied to all or specific elements
+// =============================================================================
+
+* {
+	box-sizing: border-box;
+}
+
+table {
+	border-collapse: collapse;
+	word-wrap: break-word;
+}
+
+/* Light selection rather than dark with inverted text */
+
+::selection {
+	background: $selection-color;
+	text-shadow: none;
+}
+
+/* More sensible positioning behaviour for img elements */
+
+img {
+	vertical-align: middle;
+}
+
+/* Resizing horizontally is unncessary and can cause ugliness */
+
+textarea {
+	resize: vertical;
+}
+
+/* Link behaviour appropriate in more contexts */
+
+a {
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+/* Make placeholder text consistent across browsers */
+
+::placeholder {
+	color: #999;
+}

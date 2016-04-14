@@ -1,0 +1,20 @@
+% layout 'default';
+% title 'Login';
+
+<form class="Form" method="post" action="/auth">
+   <input type="hidden" name="referrer" value="{{= $referrer }}">
+
+   <div class="Form-item">
+      <label>Login</label>
+      <input type="text" name="username" required>
+   </div>
+
+   <div class="Form-item">
+      <label>Password</label>
+      <input type="password" name="password" required>
+   </div>
+
+   <div class="Form-item">
+      <input type="submit" value="Login">
+   </div>
+</form>

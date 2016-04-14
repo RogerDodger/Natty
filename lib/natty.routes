@@ -1,0 +1,14 @@
+GET / -> Game.list
+
+GET /login -> User.login
+GET /logout -> User.logout
+POST /auth -> User.auth
+
+GET /players -> Player.list
+
+ANY / -> User.authd {
+   POST /player/add -> Player.add
+
+   GET /game/create -> Game.create
+   GET /game/draw -> Game.draw
+}

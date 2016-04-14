@@ -1,0 +1,199 @@
+// ===========================================================================
+// Layout
+// ===========================================================================
+
+body {
+   background-color: hsla(200, 50%, 99%, 1);
+   color: #222;
+   font-size: 100%;
+}
+
+.Site-header {
+   @extend .clearfix;
+   background-color: white;
+   border-bottom: 0.15em solid hsla(0, 0%, 70%, 1);
+   padding: 0.3em;
+   margin-bottom: 1em;
+}
+
+.Site-header--container {
+   margin: 0 auto;
+   max-width: $container-width;
+
+   ul {
+      display: inline-block;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+         display: inline-block;
+         padding: 0.2em 0.6em;
+
+         a {
+            text-decoration: none;
+            color: inherit;
+         }
+
+         a:hover {
+            color: blue;
+         }
+      }
+
+      .Site-logo {
+         a {
+            font-weight: bold;
+         }
+      }
+   }
+}
+
+.Site-header--global {
+   float: left;
+}
+
+.Site-header--user {
+   float: right;
+}
+
+.Site-content {
+   margin: 0 auto;
+   max-width: $container-width;
+}
+
+.Admin-fields {
+   margin: 1em 0;
+}
+
+.Modes {
+   list-style-type: none;
+   margin: 1em 0;
+   padding: 0;
+
+   text-align: center;
+
+   li {
+      display: inline-block;
+      padding: 0 1em;
+   }
+}
+
+.Players {
+   @include striped-table;
+
+   margin: 1em 0;
+
+   td {
+      text-align: center;
+   }
+
+   th {
+      white-space: nowrap;
+   }
+}
+
+.Players-rating {
+   width: 6.5rem;
+
+   &:hover {
+      font-size: 0;
+
+      &::after {
+         font-size: 1rem;
+         content: attr(data-precise);
+      }
+   }
+}
+
+.Players-rating:not(:nth-child(3)) {
+   color: #888;
+}
+
+.Players-rank {
+   width: 1px;
+}
+
+.Game {
+   margin: 1em 0;
+}
+
+.Game-scheduled {
+   text-align: center;
+   font-size: 1.2em;
+   margin-bottom: 0.5em;
+}
+
+.Teams {
+   text-align: center;
+}
+
+.Team {
+   border-width: 0.12em;
+   border-style: solid;
+   display: inline-block;
+   margin: 0.5em 1em;
+   min-width: 12em;
+   text-align: center;
+
+   $sat: 50%;
+   $l: 80%;
+   $lb: $l * 0.75;
+
+   &.red {
+      background: hsla(0, $sat, $l, 1);
+      &, .Team-score {
+         border-color: hsla(0, $sat, $lb, 1);
+      }
+   }
+
+   &.green {
+      background: hsla(120, $sat, $l, 1);
+      &, .Team-score {
+         border-color: hsla(120, $sat, $lb, 1);
+      }
+   }
+
+   &.blue {
+      background: hsla(240, $sat, $l, 1);
+      &, .Team-score {
+         border-color: hsla(240, $sat, $lb, 1);
+      }
+   }
+}
+
+.Team-score {
+   border-bottom-width: 0.07em;
+   border-bottom-style: solid;
+   margin: 0.3em;
+   padding: 0.3em;
+   font-size: 1.2em;
+   text-align: center;
+
+   input {
+      width: 4em;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      text-align: center;
+   }
+}
+
+.Team-players {
+   display: table;
+   margin: 0 auto;
+}
+
+.Team-player {
+   display: table-row;
+}
+
+.Team-player--name,
+.Team-player--rating {
+   display: table-cell;
+   padding: 0.4em 0.8em;
+}
+
+.Game-creaters {
+   @include button-group($hue: 200);
+   margin: 0;
+}
