@@ -1,5 +1,7 @@
 <div class="Game">
-   <div class="Game-scheduled">{{= $game->scheduled->strftime('%b %d %H:%M') }}</div>
+   <div class="Game-scheduled">
+      {{== $game->scheduled->datetime_html }}
+   </div>
 
    % my $form = user() && !$game->finalised;
    % if ($form) {

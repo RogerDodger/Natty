@@ -20,9 +20,10 @@ sub find_maybe {
 }
 
 sub order_by {
-   my $self = shift;
-   return $self->search({}, { -order_by => shift });
+   shift->search({}, { order_by => shift });
 }
+
+sub order_by_rs { scalar shift->order_by(@_); }
 
 sub prefetch {
    shift->search({}, { prefetch => shift });

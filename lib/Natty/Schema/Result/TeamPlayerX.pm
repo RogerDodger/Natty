@@ -30,7 +30,7 @@ __PACKAGE__->result_source_instance->view_definition(q{
 
    WHERE t.id = ?
 
-   ORDER BY theta DESC
+   ORDER BY mu DESC
 });
 
 __PACKAGE__->add_columns(

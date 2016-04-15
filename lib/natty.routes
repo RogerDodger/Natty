@@ -15,5 +15,7 @@ ANY / -> User.authd {
    ANY /game/:id/ -> Game.fetch {
       POST /score -> Game.score (game-score)
    }
+
+   POST /player/:pid/online -> Player.online (player-online)
 }
 

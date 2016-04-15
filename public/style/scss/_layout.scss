@@ -61,6 +61,75 @@ body {
    max-width: $container-width;
 }
 
+.Admin-panel {
+   background-color: hsla(0, 0%, 95%, 1);
+   padding: 0.02em;
+
+   @media #{$desktop} {
+      border-right: 0.15em solid hsla(0, 0%, 70%, 1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow: auto;
+      width: $panel-width;
+   }
+}
+
+.Site-main.sidebar {
+   @media #{$desktop} {
+      margin-left: $panel-width;
+   }
+}
+
+.Admin-panel--header {
+   font-size: 1.2em;
+   margin: 0.6em 0;
+   text-align: center;
+}
+
+.Players-panel {
+   display: table;
+   width: 100%;
+   $hue: 100;
+   $sat: 20%;
+
+   .Player {
+      display: table-row;
+
+      background-color: hsla($hue, $sat, 93%, 1);
+      &:nth-child(odd) {
+         background-color: hsla($hue, $sat, 95%, 1);
+      }
+
+
+      div {
+         display: table-cell;
+         padding: 0.2rem 0.8rem;
+      }
+
+      .Player-online {
+         font-size: 0.5em;
+         width: 1px;
+         vertical-align: middle;
+
+         button {
+            @extend .reset;
+         }
+      }
+   }
+
+   .Player:hover {
+      cursor: pointer;
+   }
+
+   .Player.online {
+      .fa-circle {
+         color: hsla(120, 100%, 50%, 1);
+      }
+   }
+}
+
 .Admin-fields {
    margin: 1em 0;
 }
@@ -140,8 +209,8 @@ body {
    border-width: 0.12em;
    border-style: solid;
    display: inline-block;
-   margin: 0.5em 1em;
-   min-width: 12em;
+   margin: 0.5em;
+   width: 13em;
    text-align: center;
 
    $sat: 50%;

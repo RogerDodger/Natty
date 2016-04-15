@@ -28,7 +28,7 @@ __PACKAGE__->result_source_instance->view_definition(q{
 
    WHERE r.mode_id = ?
    GROUP BY r.player_id
-   ORDER BY theta DESC, p.tag_normalised ASC
+   ORDER BY mu DESC, p.tag_normalised ASC
 });
 
 __PACKAGE__->add_columns(

@@ -265,15 +265,57 @@ a {
   font-size: 0.9em; }
 
 /*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+.hidden {
+  display: none !important;
+  visibility: hidden; }
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
+
+/*
+ * Extends the .visuallyhidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto; }
+
+/*
+ * Hide visually and from screenreaders, but maintain layout
+ */
+.invisible {
+  visibility: hidden; }
+
+.transparent {
+  color: transparent; }
+
+/*
  * Clearfix: contain floats
  *
  * For modern browsers
  * 1. The space content is one way to avoid an Opera bug when the
- *    `contenteditable` attribute is included anywhere else in the document.
- *    Otherwise it causes space to appear at the top and bottom of elements
- *    that receive the `clearfix` class.
+ *   `contenteditable` attribute is included anywhere else in the document.
+ *   Otherwise it causes space to appear at the top and bottom of elements
+ *   that receive the `clearfix` class.
  * 2. The use of `table` rather than `block` is only necessary if using
- *    `:before` to contain the top-margins of child elements.
+ *   `:before` to contain the top-margins of child elements.
  */
 .clearfix:before, .Form-group:before, .Site-header:before,
 .clearfix:after,
@@ -293,6 +335,35 @@ a {
  */
 .clearfix, .Form-group, .Site-header {
   *zoom: 1; }
+
+/*
+ * Margin as class name
+ */
+.spaced {
+  margin-top: 1em;
+  margin-bottom: 1em; }
+
+/*
+ * Line-height as class name
+ */
+.flat {
+  line-height: 0; }
+
+/*
+ * Clear the default style of <button> elements, to contain .fa icons that submit forms
+ */
+.button-reset {
+  background: none;
+  padding: 0;
+  border: none; }
+
+.reset, .Players-panel .Player .Player-online button {
+  background: transparent;
+  border: 0;
+  font-size: 100%;
+  margin: 0;
+  outline: 0;
+  padding: 0; }
 
 body {
   background-color: #fbfdfe;
@@ -333,6 +404,48 @@ body {
 .Site-content {
   margin: 0 auto;
   max-width: 54em; }
+
+.Admin-panel {
+  background-color: #f2f2f2;
+  padding: 0.02em; }
+  @media not all and (max-width: 40rem) {
+    .Admin-panel {
+      border-right: 0.15em solid #b3b3b3;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow: auto;
+      width: 12em; } }
+
+@media not all and (max-width: 40rem) {
+  .Site-main.sidebar {
+    margin-left: 12em; } }
+
+.Admin-panel--header {
+  font-size: 1.2em;
+  margin: 0.6em 0;
+  text-align: center; }
+
+.Players-panel {
+  display: table;
+  width: 100%; }
+  .Players-panel .Player {
+    display: table-row;
+    background-color: #ecf1ea; }
+    .Players-panel .Player:nth-child(odd) {
+      background-color: #f1f5f0; }
+    .Players-panel .Player div {
+      display: table-cell;
+      padding: 0.2rem 0.8rem; }
+    .Players-panel .Player .Player-online {
+      font-size: 0.5em;
+      width: 1px;
+      vertical-align: middle; }
+  .Players-panel .Player:hover {
+    cursor: pointer; }
+  .Players-panel .Player.online .fa-circle {
+    color: lime; }
 
 .Admin-fields {
   margin: 1em 0; }
@@ -438,8 +551,8 @@ body {
   border-width: 0.12em;
   border-style: solid;
   display: inline-block;
-  margin: 0.5em 1em;
-  min-width: 12em;
+  margin: 0.5em;
+  width: 13em;
   text-align: center; }
   .Team.red {
     background: #e6b3b3; }

@@ -1,6 +1,7 @@
 package Natty;
 use Mojo::Base 'Mojolicious';
 
+use CHI;
 use Class::Null;
 use Natty::DateTime;
 use Natty::Schema;
@@ -22,12 +23,19 @@ sub startup {
 
    $self->config({
       dsn => 'dbi:SQLite:site/natty.db',
+
+      onlineCache => CHI->new(
+         driver => 'FastMmap',
+         namespace => 'online',
+         expires_in => '12h',
+      ),
    });
 
-   $self->hook(before_dispatch => sub {
+   $self->hook(before_routes => sub {
       my $c = shift;
 
       $c->stash->{now} = Natty::DateTime->now;
+      $c->stash->{players} = $c->db('Player')->order_by_rs('tag_normalised');
    });
 
    $self->helper(db => sub {

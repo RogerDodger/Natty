@@ -29,7 +29,6 @@ sub add {
             sigma => Natty::Rating::SIGMA_INIT,
          });
       }
-
    }
 
    if (@exists) {
@@ -54,6 +53,15 @@ sub list {
    );
 
    $c->render;
+}
+
+sub online {
+   my $c = shift;
+   my $cache = $c->config->{onlineCache};
+   my $pid = $c->param('pid');
+   my $ret = 0 + !$cache->get($pid);
+   $cache->get($pid) ? $cache->remove($pid) : $cache->set($pid, 1);
+   $c->render(text => $ret);
 }
 
 1;
