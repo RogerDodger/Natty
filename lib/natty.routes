@@ -4,7 +4,7 @@ GET /login -> User.login
 GET /logout -> User.logout
 POST /auth -> User.auth
 
-GET /players -> Player.list (players)
+GET /player/ratings -> Player.ratings
 
 ANY / -> User.authd {
    POST /player/add -> Player.add
@@ -12,10 +12,14 @@ ANY / -> User.authd {
    GET /game/create -> Game.create
    GET /game/draw -> Game.draw
 
+   POST /game/add -> Game.add
+
    ANY /game/:id/ -> Game.fetch {
-      POST /score -> Game.score (game-score)
+      POST /score -> Game.score
    }
 
-   POST /player/:pid/online -> Player.online (player-online)
+   POST /player/all/online  -> Player.online_all
+   POST /player/all/offline -> Player.offline_all
+   POST /player/:pid/online -> Player.online
 }
 

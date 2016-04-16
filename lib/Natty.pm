@@ -12,7 +12,7 @@ sub startup {
 
    $self->log(Mojo::Log->new);
 
-   $self->plugin('PlainRoutes');
+   $self->plugin('PlainRoutes', { autoname => 1 });
    $self->plugin(EPRenderer => {
       name     => 'epm',
       template => {
@@ -27,7 +27,7 @@ sub startup {
       onlineCache => CHI->new(
          driver => 'FastMmap',
          namespace => 'online',
-         expires_in => '12h',
+         expires_in => '7d',
       ),
    });
 
@@ -36,6 +36,11 @@ sub startup {
 
       $c->stash->{now} = Natty::DateTime->now;
       $c->stash->{players} = $c->db('Player')->order_by_rs('tag_normalised');
+
+      my $w = $c->req->headers->header('x-requested-with') // '';
+      if ($w eq 'XMLHttpRequest') {
+         $c->stash->{format} //= 'ajax';
+      }
    });
 
    $self->helper(db => sub {

@@ -9,6 +9,25 @@ sub fetch {
 
 sub create {
    my $c = shift;
+
+   $c->stash->{times} = $c->db('Game')->foo;
+
+   $c->render;
+}
+
+sub list {
+   my $c = shift;
+
+   $c->stash(
+      active   => $c->db('Game')->active,
+      finished => $c->db('Game')->finished,
+   );
+
+   $c->render;
+}
+
+sub random {
+   my $c = shift;
    my $mode = $c->db('Mode')->find(1);
    my $games = $c->db('Game');
 
@@ -35,19 +54,6 @@ sub create {
 
    $c->flash('Game created!');
    $c->redirect_to('games');
-}
-
-sub list {
-   my $c = shift;
-
-   $c->stash(
-      active   => $c->db('Game')->active,
-      finished => $c->db('Game')->finished,
-   );
-
-   $c->app->log->debug($c->stash->{now});
-
-   $c->render;
 }
 
 sub score {

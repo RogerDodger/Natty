@@ -19,7 +19,7 @@
             <div class="Site-header--container">
                <ul class="Site-header--global">
                   <li class="Site-logo"><a href="/">Natty</a>
-                  <li><a href="/players">Players</a>
+                  <li><a href="/player/ratings">Ratings</a>
                </ul>
 
                <ul class="Site-header--user">
@@ -60,6 +60,16 @@
                </div>
             </div>
             % }
+         </div>
+
+         <div class="Player-online--bulk">
+            <form method="post" action="{{= url_for 'player-offline_all' }}">
+               <input type="submit" value="All off">
+            </form>
+
+            <form method="post" action="{{= url_for 'player-online_all' }}">
+               <input type="submit" value="All on">
+            </form>
          </div>
       </div>
       % }

@@ -2,6 +2,16 @@ Date.prototype.getShortMonth = function () {
    return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][this.getMonth()];
 };
 
+Number.prototype.zeropad = function(n) {
+   var str = "" + this;
+   var len = n - str.length;
+   var pad = "";
+   while (len-- > 0) {
+      pad += "0";
+   }
+   return pad + str;
+};
+
 // ===========================================================================
 // Player online buttons
 // ===========================================================================
@@ -24,6 +34,9 @@ $(document).ready(function () {
                else {
                   $row.removeClass('online');
                }
+            },
+            error: function(xhr, status, err) {
+               alert(xhr.status + " " + xhr.statusText);
             }
          })
       )
@@ -38,6 +51,6 @@ $(document).ready(function () {
    $('time.datetime').each(function () {
       var d = new Date(this.dateTime);
       this.textContent = d.getShortMonth() + " " + d.getDate() + " "
-                       + d.getHours() + ":" + d.getMinutes();
+                       + d.getHours().zeropad(2) + ":" + d.getMinutes().zeropad(2);
    });
 });

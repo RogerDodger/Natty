@@ -102,10 +102,9 @@ body {
          background-color: hsla($hue, $sat, 95%, 1);
       }
 
-
       div {
          display: table-cell;
-         padding: 0.2rem 0.8rem;
+         padding: 0.3rem 0.8rem;
       }
 
       .Player-online {
@@ -114,7 +113,8 @@ body {
          vertical-align: middle;
 
          button {
-            @extend .reset;
+            @extend .button-reset;
+            cursor: pointer;
          }
       }
    }
@@ -127,6 +127,15 @@ body {
       .fa-circle {
          color: hsla(120, 100%, 50%, 1);
       }
+   }
+}
+
+.Player-online--bulk {
+   text-align: center;
+   padding: 0.3rem;
+
+   form {
+      display: inline;
    }
 }
 
@@ -161,9 +170,8 @@ body {
    }
 }
 
-.Players-rating,
-.Players-games {
-   width: 6.5rem;
+.Players-tag {
+   width: 100%;
 }
 
 .Players-rating:hover {

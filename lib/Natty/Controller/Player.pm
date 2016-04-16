@@ -35,10 +35,10 @@ sub add {
       $c->flash(error_msg => "Player(s) already exist: " . join ", ", @exists);
    }
 
-   $c->redirect_to('players');
+   $c->redirect_to('player-ratings');
 }
 
-sub list {
+sub ratings {
    my $c = shift;
 
    my $mode = $c->db('Mode')->find_maybe($c->param('mode') || 1)
@@ -55,13 +55,38 @@ sub list {
    $c->render;
 }
 
+sub offline_all {
+   my $c = shift;
+   $c->config->{onlineCache}->clear;
+   $c->respond_to({
+      ajax => { text => 'okay' },
+      html => sub { $c->redirect_to($c->req->headers->referrer || '/'); },
+   });
+}
+
 sub online {
    my $c = shift;
    my $cache = $c->config->{onlineCache};
    my $pid = $c->param('pid');
    my $ret = 0 + !$cache->get($pid);
    $cache->get($pid) ? $cache->remove($pid) : $cache->set($pid, 1);
-   $c->render(text => $ret);
+
+   $c->respond_to(
+      ajax => { text => $ret },
+      html => sub { $c->redirect_to($c->req->headers->referrer || '/') },
+   );
+}
+
+sub online_all {
+   my $c = shift;
+   my $cache = $c->config->{onlineCache};
+   $c->app->log->debug('???');
+   $cache->set($_->id, 1) for $c->db('Player')->all;
+
+   $c->respond_to(
+      ajax => { text => 'okay' },
+      html => sub { $c->redirect_to($c->req->headers->referrer || '/') },
+   );
 }
 
 1;

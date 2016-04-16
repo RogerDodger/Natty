@@ -49,6 +49,10 @@ a {
   width: 100%; }
   .Table > tbody > tr > td {
     padding: 0.8em; }
+    .Table > tbody > tr > td:first-child {
+      padding-left: 1.6em; }
+    .Table > tbody > tr > td:last-child {
+      padding-right: 1.6em; }
   .Table > thead, .Table > tbody {
     border: 1px solid #d0dce2; }
   .Table.sortable > thead > tr > th:not(:empty):hover {
@@ -63,6 +67,10 @@ a {
       letter-spacing: 0.04em;
       text-align: center;
       text-shadow: 1px 0 1px #cccccc; }
+      .Table > thead > tr > th:first-child {
+        padding-left: 1.2em; }
+      .Table > thead > tr > th:last-child {
+        padding-right: 1.2em; }
   .Table.grid > thead > tr > th, .Table.grid > tbody > tr > td {
     border-right: 1px solid #d0dce2;
     border-left: 1px solid #d0dce2; }
@@ -352,18 +360,10 @@ a {
 /*
  * Clear the default style of <button> elements, to contain .fa icons that submit forms
  */
-.button-reset {
+.button-reset, .Players-panel .Player .Player-online button {
   background: none;
   padding: 0;
   border: none; }
-
-.reset, .Players-panel .Player .Player-online button {
-  background: transparent;
-  border: 0;
-  font-size: 100%;
-  margin: 0;
-  outline: 0;
-  padding: 0; }
 
 body {
   background-color: #fbfdfe;
@@ -437,15 +437,23 @@ body {
       background-color: #f1f5f0; }
     .Players-panel .Player div {
       display: table-cell;
-      padding: 0.2rem 0.8rem; }
+      padding: 0.3rem 0.8rem; }
     .Players-panel .Player .Player-online {
       font-size: 0.5em;
       width: 1px;
       vertical-align: middle; }
+      .Players-panel .Player .Player-online button {
+        cursor: pointer; }
   .Players-panel .Player:hover {
     cursor: pointer; }
   .Players-panel .Player.online .fa-circle {
     color: lime; }
+
+.Player-online--bulk {
+  text-align: center;
+  padding: 0.3rem; }
+  .Player-online--bulk form {
+    display: inline; }
 
 .Admin-fields {
   margin: 1em 0; }
@@ -464,6 +472,10 @@ body {
   margin: 1em 0; }
   .Players > tbody > tr > td {
     padding: 0.8em; }
+    .Players > tbody > tr > td:first-child {
+      padding-left: 1.6em; }
+    .Players > tbody > tr > td:last-child {
+      padding-right: 1.6em; }
   .Players > thead, .Players > tbody {
     border: 1px solid #d0dce2; }
   .Players.sortable > thead > tr > th:not(:empty):hover {
@@ -478,6 +490,10 @@ body {
       letter-spacing: 0.04em;
       text-align: center;
       text-shadow: 1px 0 1px #cccccc; }
+      .Players > thead > tr > th:first-child {
+        padding-left: 1.2em; }
+      .Players > thead > tr > th:last-child {
+        padding-right: 1.2em; }
   .Players.grid > thead > tr > th, .Players.grid > tbody > tr > td {
     border-right: 1px solid #d0dce2;
     border-left: 1px solid #d0dce2; }
@@ -514,9 +530,8 @@ body {
   .Players th {
     white-space: nowrap; }
 
-.Players-rating,
-.Players-games {
-  width: 6.5rem; }
+.Players-tag {
+  width: 100%; }
 
 .Players-rating:hover {
   font-size: 0; }

@@ -10,6 +10,8 @@ __PACKAGE__->add_columns(
    { data_type => "text", is_nullable => 0 },
    "tag_normalised",
    { data_type => "text", is_nullable => 0 },
+   "active",
+   { data_type => "boolean", is_nullable => 0, default_value => 1 },
 );
 
 __PACKAGE__->set_primary_key("id");
