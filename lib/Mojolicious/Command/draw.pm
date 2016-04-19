@@ -8,15 +8,15 @@ use IO::Prompt;
 
 sub run {
    my $self = shift;
-   my %conf = (
-      teams => shift // 5,
-      games => shift // 9,
-      tries => shift // 2_000,
-   );
-   my %stats;
-   my $draw = get_draw(\%conf, \%stats);
 
-   dd $draw, %stats;
+   my %conf;
+   my @k = qw/teams games tries/;
+   while (my $val = shift) {
+      $conf{shift @k} = $val;
+   }
+   my $draw = get_draw(\%conf);
+
+   dd $draw;
 }
 
 1;

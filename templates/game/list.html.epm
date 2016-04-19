@@ -1,15 +1,3 @@
-% layout 'default';
-% title 'Games';
-
-% if (user()) {
-<fieldset class="Admin-fields">
-   <legend>Admin</legend>
-   <ul class="Game-creaters">
-      <li><a href="{{= url_for 'game-create' }}">Create game</a></li>
-   </ul>
-</fieldset>
-% }
-
 <div class="Games">
 % for my $game ($active->all) {
    %= include 'game/single', game => $game;

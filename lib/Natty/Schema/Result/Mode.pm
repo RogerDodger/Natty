@@ -12,7 +12,7 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
-__PACKAGE__->has_many('games', 'Natty::Schema::Result::Game', 'mode_id');
+__PACKAGE__->has_many('fixtures', 'Natty::Schema::Result::Fixture', 'mode_id');
 __PACKAGE__->has_many('ratings', 'Natty::Schema::Result::Rating', 'mode_id');
 
 1;

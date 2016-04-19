@@ -16,7 +16,9 @@ my @production = qw/
    Class::Null
    IO::Prompt
    DateTime
-   DateTime::Format::RFC3339;
+   DateTime::Format::RFC3339
+   CHI
+   CHI::Driver::FastMmap
 /;
 
 my @development = qw/

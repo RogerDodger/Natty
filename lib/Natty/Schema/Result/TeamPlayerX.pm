@@ -17,20 +17,22 @@ __PACKAGE__->result_source_instance->view_definition(q{
    FROM teams t
    LEFT JOIN games g
       ON g.id = t.game_id
+   LEFT JOIN fixtures f
+      ON f.id = g.fixture_id
    LEFT JOIN team_players tp
       ON tp.team_id = t.id
    LEFT JOIN players p
       ON p.id = tp.player_id
    LEFT JOIN ratings r
       ON r.player_id = p.id
-      AND r.mode_id = g.mode_id
+      AND r.mode_id = f.mode_id
    LEFT JOIN rating_logs rl
       ON rl.player_id = p.id
       AND rl.game_id = g.id
 
    WHERE t.id = ?
 
-   ORDER BY mu DESC
+   ORDER BY mu DESC, p.tag_normalised ASC
 });
 
 __PACKAGE__->add_columns(

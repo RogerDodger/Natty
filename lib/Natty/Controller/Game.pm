@@ -1,26 +1,18 @@
 package Natty::Controller::Game;
 use Mojo::Base 'Mojolicious::Controller';
-use List::Util qw/shuffle/;
+use List::Util qw/max shuffle/;
 
 sub fetch {
    my $c = shift;
-   $c->stash->{game} = $c->db('Game')->find_maybe($c->param('id'));
-}
-
-sub create {
-   my $c = shift;
-
-   $c->stash->{times} = $c->db('Game')->foo;
-
-   $c->render;
+   $c->stash->{game} = $c->db('Game')->find_maybe($c->param('gid'));
 }
 
 sub list {
    my $c = shift;
 
    $c->stash(
-      active   => $c->db('Game')->active,
-      finished => $c->db('Game')->finished,
+      active   => $c->stash->{fixture}->games->active,
+      finished => $c->stash->{fixture}->games->finished,
    );
 
    $c->render;
@@ -30,18 +22,14 @@ sub random {
    my $c = shift;
    my $mode = $c->db('Mode')->find(1);
    my $games = $c->db('Game');
+   my $cache = $c->config->{onlineCache};
 
-   my $t = $c->stash->{now}->clone->add(minutes => 2);
-   my $last = $games->parse_datetime($games->get_column('scheduled')->max);
-   if ($last) {
-      $last = $last->clone->add(minutes => 20);
-      $t = $last if $last > $t;
-   }
-
-   my @ratings = shuffle $mode->ratings->all;
+   my @ratings = shuffle grep $cache->get($_->id), $mode->ratings->all;
    return $c->reply->exception("Not enough players") if @ratings < 15;
 
-   my $game = $mode->create_related('games', { scheduled => $t });
+   my $t0 = max grep defined, $c->stash->{now}, $c->db('Game')->t0;
+   my $game = $mode->create_related('games', { scheduled => $t0 });
+
    my @teams = map {
                   $game->create_related('teams', { color => $_ })
                } qw/blue red green/;
@@ -80,7 +68,9 @@ sub score {
    $game->update_ratings;
    $game->update({ finished => Natty::DateTime->now });
 
-   $c->redirect_to('games');
+   $c->redirect_to($c->url_for('fixture-view',
+      { fid => $game->fixture_id })->fragment("game" . $game->id)
+   );
 }
 
 1;

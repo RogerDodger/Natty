@@ -1,0 +1,1 @@
+- At any point during the night, make game from players for LotR

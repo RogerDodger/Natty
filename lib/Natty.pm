@@ -29,6 +29,11 @@ sub startup {
          namespace => 'online',
          expires_in => '7d',
       ),
+      drawCache => CHI->new(
+         driver => 'FastMmap',
+         namespace => 'draw',
+         expires_in => '1h',
+      ),
    });
 
    $self->hook(before_routes => sub {
@@ -74,6 +79,14 @@ sub startup {
                $c->db('User')->find($c->session->{__user_id}))
             : Class::Null->new;
    });
+}
+
+sub Mojolicious::Controller::paramo {
+   shift->param(shift) // '';
+}
+
+sub Mojolicious::Controller::parami {
+   shift->paramo(shift) =~ /(\d+)/ ? $1 : undef;
 }
 
 1;

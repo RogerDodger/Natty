@@ -7,6 +7,12 @@ sub active {
    })
 }
 
+sub t0 {
+   my $self = shift;
+   my $str = $self->get_column('scheduled')->max;
+   $str ? $self->parse_datetime($str)->add(minutes => 12) : undef;
+}
+
 sub finalise {
    my ($self, $game) = @_;
 

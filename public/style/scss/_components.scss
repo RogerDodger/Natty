@@ -316,7 +316,8 @@
    }
 }
 
-.Form-item:not(:first-of-type) {
+.Form-item:not(:first-of-type),
+.Form-group > .Form-item:first-of-type {
    margin-top: 1em;
 }
 
@@ -344,13 +345,10 @@
       }
    }
 
-   &.two > div {
-      width: 50%;
-   }
-
-   &.three > div {
-      width: 33.33%;
-   }
+   &.two > div { width: 50%; }
+   &.three > div { width: 33.33%; }
+   &.four > div { width: 25%; }
+   &.five > div { width: 20%; }
 
    @media #{$mobile} {
       & > div {

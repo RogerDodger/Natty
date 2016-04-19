@@ -6,6 +6,12 @@ body {
    background-color: hsla(200, 50%, 99%, 1);
    color: #222;
    font-size: 100%;
+
+   padding-bottom: 1em;
+}
+
+.loading:hover {
+   cursor: wait;
 }
 
 .Site-header {
@@ -41,8 +47,20 @@ body {
       }
 
       .Site-logo {
+         position: relative;
+
          a {
             font-weight: bold;
+         }
+
+         .Site-logo--beta {
+            @extend .noselect;
+            position: absolute;
+            right: 0;
+            bottom: -0.3em;
+            font-size: 0.7em;
+            font-weight: bold;
+            color: red;
          }
       }
    }
@@ -191,6 +209,16 @@ body {
    width: 1px;
 }
 
+.Fixture-header {
+   font-size: 1.2em;
+   text-align: center;
+}
+
+.Fixture-start,
+.Fixture-mode {
+   display: inline;
+}
+
 .Game {
    margin: 1em 0;
 }
@@ -205,7 +233,7 @@ body {
 
 .Game-scheduled {
    text-align: center;
-   font-size: 1.2em;
+   font-size: 1.15em;
    margin-bottom: 0.5em;
 }
 
@@ -213,37 +241,41 @@ body {
    text-align: center;
 }
 
+@mixin team-color($hue: 0, $sat: 30%, $l: 80%) {
+   background: hsla($hue, $sat, $l, 1);
+   &, .Team-score {
+      border-color: hsla($hue, $sat, $l * .75, 1);
+   }
+   textarea {
+      background: hsla($hue, $sat, $l + (100% - $l) / 2, 1);
+   }
+}
+
 .Team {
    border-width: 0.12em;
    border-style: solid;
    display: inline-block;
    margin: 0.5em;
-   width: 13em;
    text-align: center;
+   width: 13em;
+   vertical-align: top;
 
    $sat: 50%;
    $l: 80%;
    $lb: $l * 0.75;
 
-   &.red {
-      background: hsla(0, $sat, $l, 1);
-      &, .Team-score {
-         border-color: hsla(0, $sat, $lb, 1);
-      }
-   }
+   &.red    { @include team-color($hue: 0); }
+   &.green  { @include team-color($hue: 120); }
+   &.blue   { @include team-color($hue: 240); }
+   &.orange { @include team-color($hue: 30); }
+   &.cyan   { @include team-color($hue: 200); }
+   &.purple { @include team-color($hue: 300); }
+   &.yellow { @include team-color($hue: 60); }
+   &.pink   { @include team-color($hue: 330); }
 
-   &.green {
-      background: hsla(120, $sat, $l, 1);
-      &, .Team-score {
-         border-color: hsla(120, $sat, $lb, 1);
-      }
-   }
-
-   &.blue {
-      background: hsla(240, $sat, $l, 1);
-      &, .Team-score {
-         border-color: hsla(240, $sat, $lb, 1);
-      }
+   textarea {
+      resize: none;
+      width: 100%;
    }
 }
 
@@ -279,6 +311,10 @@ body {
    & > :last-child {
       padding-right: 0.8rem;
    }
+
+   &.placeholder {
+      color: #666;
+   }
 }
 
 .Team-player--name,
@@ -303,9 +339,18 @@ body {
    padding: 0.4em 0.8em;
 }
 
+.Fixture-form {
+   @extend .Form;
+}
+
+.Fixture-form--generate-teams,
+.Fixture-form--generate-draw {
+   padding: 0.2em 0.4em;
+}
+
 .Game-score--submit {
    input {
-      @include button($hue: 27, $sat: 80%);
+      @include button($hue: 120, $sat: 50%);
    }
 
    text-align: center;

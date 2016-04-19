@@ -1,0 +1,10 @@
+<div class="Fixture-header">
+   <div class="Fixture-mode">
+      <a href="{{= url_for 'fixture-view', { fid => $fixture->id } }}">
+         {{= $fixture->mode->name }}<!--
+   --></a>
+   </div>
+   <div class="Fixture-start">
+      {{== $fixture->start->datetime_html }}
+   </div>
+</div>

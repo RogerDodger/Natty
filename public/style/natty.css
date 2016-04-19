@@ -158,7 +158,7 @@ a {
   .Flash p:not(:first-child) {
     margin-top: 1em; }
 
-.noselect, .Table.sortable > thead > tr > th, .Table-button:disabled, .Table-button.selected, .Form input[type="submit"]:disabled, .Form input[type="submit"].selected, .Players.sortable > thead > tr > th, .Game-score--submit input:disabled, .Game-score--submit input.selected, .Game-creaters li a:disabled, .Game-creaters li a.selected {
+.noselect, .Table.sortable > thead > tr > th, .Table-button:disabled, .Table-button.selected, .Form input[type="submit"]:disabled, .Fixture-form input[type="submit"]:disabled, .Form input[type="submit"].selected, .Fixture-form input[type="submit"].selected, .Site-header--container ul .Site-logo .Site-logo--beta, .Players.sortable > thead > tr > th, .Game-score--submit input:disabled, .Game-score--submit input.selected, .Game-creaters li a:disabled, .Game-creaters li a.selected {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   khtml-user-select: none;
@@ -167,34 +167,42 @@ a {
   -webkit-user-select: none;
           user-select: none; }
 
-.Form label {
+.Form label, .Fixture-form label {
   color: #666;
   display: block;
   font-weight: bold;
   font-size: 0.85em;
   font-variant: small-caps;
   text-shadow: 0 1px 1px #fff; }
-.Form input[type="text"],
+.Form input[type="text"], .Fixture-form input[type="text"],
 .Form input[type="password"],
+.Fixture-form input[type="password"],
 .Form input[type="email"],
+.Fixture-form input[type="email"],
 .Form input[type="url"],
+.Fixture-form input[type="url"],
 .Form input[type="number"],
+.Fixture-form input[type="number"],
 .Form input[type="search"],
+.Fixture-form input[type="search"],
 .Form input[type="datetime"],
+.Fixture-form input[type="datetime"],
 .Form textarea,
-.Form select {
+.Fixture-form textarea,
+.Form select,
+.Fixture-form select {
   background: #fcfcfc;
   border: 1px solid #aaa;
   padding: 0.25em;
   border-radius: 0.25em;
   width: 100%; }
-.Form input[type="checkbox"] {
+.Form input[type="checkbox"], .Fixture-form input[type="checkbox"] {
   vertical-align: middle; }
-  .Form input[type="checkbox"] + label {
+  .Form input[type="checkbox"] + label, .Fixture-form input[type="checkbox"] + label {
     display: inline; }
-.Form textarea {
+.Form textarea, .Fixture-form textarea {
   margin-bottom: 0; }
-.Form input[type="submit"] {
+.Form input[type="submit"], .Fixture-form input[type="submit"] {
   border-style: solid;
   border-width: 1px;
   display: inline-block;
@@ -206,23 +214,24 @@ a {
   border-color: #66cc66;
   color: #143d14;
   font-size: 1.03em; }
-  .Form input[type="submit"]:not(:disabled):not(.selected):hover {
+  .Form input[type="submit"]:not(:disabled):not(.selected):hover, .Fixture-form input[type="submit"]:not(:disabled):not(.selected):hover {
     cursor: pointer;
     text-decoration: none; }
-  .Form input[type="submit"]:not(:disabled):not(.selected):hover {
+  .Form input[type="submit"]:not(:disabled):not(.selected):hover, .Fixture-form input[type="submit"]:not(:disabled):not(.selected):hover {
     background: #a3e0a3; }
-  .Form input[type="submit"]:not(:disabled):not(.selected):active {
+  .Form input[type="submit"]:not(:disabled):not(.selected):active, .Fixture-form input[type="submit"]:not(:disabled):not(.selected):active {
     box-shadow: 0 0.5em 0.7em #94db94 inset; }
-  .Form input[type="submit"]:disabled, .Form input[type="submit"].selected {
+  .Form input[type="submit"]:disabled, .Fixture-form input[type="submit"]:disabled, .Form input[type="submit"].selected, .Fixture-form input[type="submit"].selected {
     background: #c3d5c3;
     border-color: #87ab87;
     color: #223022; }
-    .Form input[type="submit"]:disabled:hover, .Form input[type="submit"].selected:hover {
+    .Form input[type="submit"]:disabled:hover, .Fixture-form input[type="submit"]:disabled:hover, .Form input[type="submit"].selected:hover, .Fixture-form input[type="submit"].selected:hover {
       cursor: default; }
-.Form *[disabled] {
+.Form *[disabled], .Fixture-form *[disabled] {
   background-color: #e6e6e6; }
 
-.Form-item:not(:first-of-type) {
+.Form-item:not(:first-of-type),
+.Form-group > .Form-item:first-of-type {
   margin-top: 1em; }
 
 .Form-group:first-of-type > .Form-item {
@@ -241,6 +250,10 @@ a {
   width: 50%; }
 .Form-group.three > div {
   width: 33.33%; }
+.Form-group.four > div {
+  width: 25%; }
+.Form-group.five > div {
+  width: 20%; }
 @media (max-width: 40rem) {
   .Form-group > div {
     width: 100% !important;
@@ -368,7 +381,11 @@ a {
 body {
   background-color: #fbfdfe;
   color: #222;
-  font-size: 100%; }
+  font-size: 100%;
+  padding-bottom: 1em; }
+
+.loading:hover {
+  cursor: wait; }
 
 .Site-header {
   background-color: white;
@@ -392,8 +409,17 @@ body {
         color: inherit; }
       .Site-header--container ul li a:hover {
         color: blue; }
-    .Site-header--container ul .Site-logo a {
-      font-weight: bold; }
+    .Site-header--container ul .Site-logo {
+      position: relative; }
+      .Site-header--container ul .Site-logo a {
+        font-weight: bold; }
+      .Site-header--container ul .Site-logo .Site-logo--beta {
+        position: absolute;
+        right: 0;
+        bottom: -0.3em;
+        font-size: 0.7em;
+        font-weight: bold;
+        color: red; }
 
 .Site-header--global {
   float: left; }
@@ -545,6 +571,14 @@ body {
 .Players-rank {
   width: 1px; }
 
+.Fixture-header {
+  font-size: 1.2em;
+  text-align: center; }
+
+.Fixture-start,
+.Fixture-mode {
+  display: inline; }
+
 .Game {
   margin: 1em 0; }
 
@@ -556,7 +590,7 @@ body {
 
 .Game-scheduled {
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.15em;
   margin-bottom: 0.5em; }
 
 .Teams {
@@ -567,20 +601,60 @@ body {
   border-style: solid;
   display: inline-block;
   margin: 0.5em;
+  text-align: center;
   width: 13em;
-  text-align: center; }
+  vertical-align: top; }
   .Team.red {
-    background: #e6b3b3; }
+    background: #dbbdbd; }
     .Team.red, .Team.red .Team-score {
-      border-color: #cc6666; }
+      border-color: #b87a7a; }
+    .Team.red textarea {
+      background: #eddede; }
   .Team.green {
-    background: #b3e6b3; }
+    background: #bddbbd; }
     .Team.green, .Team.green .Team-score {
-      border-color: #66cc66; }
+      border-color: #7ab87a; }
+    .Team.green textarea {
+      background: #deedde; }
   .Team.blue {
-    background: #b3b3e6; }
+    background: #bdbddb; }
     .Team.blue, .Team.blue .Team-score {
-      border-color: #6666cc; }
+      border-color: #7a7ab8; }
+    .Team.blue textarea {
+      background: #dedeed; }
+  .Team.orange {
+    background: #dbccbd; }
+    .Team.orange, .Team.orange .Team-score {
+      border-color: #b8997a; }
+    .Team.orange textarea {
+      background: #ede6de; }
+  .Team.cyan {
+    background: #bdd1db; }
+    .Team.cyan, .Team.cyan .Team-score {
+      border-color: #7aa3b8; }
+    .Team.cyan textarea {
+      background: #dee8ed; }
+  .Team.purple {
+    background: #dbbddb; }
+    .Team.purple, .Team.purple .Team-score {
+      border-color: #b87ab8; }
+    .Team.purple textarea {
+      background: #eddeed; }
+  .Team.yellow {
+    background: #dbdbbd; }
+    .Team.yellow, .Team.yellow .Team-score {
+      border-color: #b8b87a; }
+    .Team.yellow textarea {
+      background: #ededde; }
+  .Team.pink {
+    background: #dbbdcc; }
+    .Team.pink, .Team.pink .Team-score {
+      border-color: #b87a99; }
+    .Team.pink textarea {
+      background: #eddee6; }
+  .Team textarea {
+    resize: none;
+    width: 100%; }
 
 .Team-score {
   border-bottom-width: 0.07em;
@@ -606,6 +680,8 @@ body {
     padding-left: 0.8rem; }
   .Team-player > :last-child {
     padding-right: 0.8rem; }
+  .Team-player.placeholder {
+    color: #666; }
 
 .Team-player--name,
 .Team-player--rating,
@@ -625,6 +701,10 @@ body {
   width: 100%;
   padding: 0.4em 0.8em; }
 
+.Fixture-form--generate-teams,
+.Fixture-form--generate-draw {
+  padding: 0.2em 0.4em; }
+
 .Game-score--submit {
   text-align: center; }
   .Game-score--submit input {
@@ -635,20 +715,20 @@ body {
     padding: 0.6em 0.8em;
     text-decoration: none;
     vertical-align: middle;
-    background: #f5c8a3;
-    border-color: #eb9147;
-    color: #492608; }
+    background: #b3e6b3;
+    border-color: #66cc66;
+    color: #143d14; }
     .Game-score--submit input:not(:disabled):not(.selected):hover {
       cursor: pointer;
       text-decoration: none; }
     .Game-score--submit input:not(:disabled):not(.selected):hover {
-      background: #f3bd91; }
+      background: #a3e0a3; }
     .Game-score--submit input:not(:disabled):not(.selected):active {
-      box-shadow: 0 0.5em 0.7em #f1b27e inset; }
+      box-shadow: 0 0.5em 0.7em #94db94 inset; }
     .Game-score--submit input:disabled, .Game-score--submit input.selected {
-      background: #dacbbe;
-      border-color: #b6967c;
-      color: #34281d; }
+      background: #c3d5c3;
+      border-color: #87ab87;
+      color: #223022; }
       .Game-score--submit input:disabled:hover, .Game-score--submit input.selected:hover {
         cursor: default; }
 

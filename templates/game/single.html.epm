@@ -1,11 +1,11 @@
-<div class="Game">
+<div class="Game" id="game{{= $game->id }}">
    <div class="Game-scheduled">
       {{== $game->scheduled->datetime_html }}
    </div>
 
    % my $form = user() && !$game->finalised;
    % if ($form) {
-   <form method="post" action="{{= url_for 'game-score', { id => $game->id } }}">
+   <form method="post" action="{{= url_for 'game-score', { gid => $game->id } }}">
    % }
       <div class="Teams">
       % for my $team ($game->teams) {
@@ -27,7 +27,6 @@
                   <div class="Team-player--name">{{= $player->tag }}</div>
                   <div class="Team-player--rating">
                      {{= sprintf "%.2f", $player->mu }}
-
                   </div>
                   % if ($player->theta_delta) {
                   <div class="Team-player--delta">

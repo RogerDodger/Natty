@@ -1,0 +1,19 @@
+% layout 'default';
+% title 'Fixtures';
+
+% if (user()) {
+<fieldset class="Admin-fields">
+   <legend>Admin</legend>
+   <ul class="Game-creaters">
+      <li><a href="{{= url_for 'fixture-create' }}">Create fixture</a></li>
+   </ul>
+</fieldset>
+% }
+
+<div class="Fixtures">
+% for my $fixture ($fixtures->all) {
+   <div class="Fixture">
+      %= include 'fixture/header', fixture => $fixture;
+   </div>
+% }
+</div>

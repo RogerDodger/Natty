@@ -1,0 +1,9 @@
+% layout 'default';
+% title "Fixture #" . $fixture->id;
+
+<div class="Fixture">
+   %= include 'fixture/header', fixture => $fixture;
+   % for my $game ($fixture->games) {
+      %= include 'game/single', game => $game;
+   % }
+</div>

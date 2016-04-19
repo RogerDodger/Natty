@@ -22,8 +22,8 @@ sub authd {
 
    return 1 if $c->user;
 
-   $c->render(text => "Not allowed!");
    $c->res->code(403);
+   $c->reply->exception("Not allowed!");
    undef;
 }
 

@@ -80,7 +80,6 @@ sub online {
 sub online_all {
    my $c = shift;
    my $cache = $c->config->{onlineCache};
-   $c->app->log->debug('???');
    $cache->set($_->id, 1) for $c->db('Player')->all;
 
    $c->respond_to(

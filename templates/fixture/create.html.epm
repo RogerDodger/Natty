@@ -1,0 +1,108 @@
+% layout 'default';
+% title 'New fixture';
+
+<form class="Fixture-form" action="{{= url_for 'fixture-add' }}" method="post">
+   <div class="Form-group five">
+      <div class="Form-item">
+         <label>Mode</label>
+         <select disabled="disabled">
+            <option value="1">Nats</option>
+         </select>
+         <input type="hidden" name="mode" value="nats">
+      </div>
+
+      <div class="Form-item">
+         <label>Start</label>
+         <select name="start" class="Fixture-form--start">
+         % for my $t (@$times) {
+            <option value="{{= $t->iso8601 }}Z">
+               {{== $t->strftime('%H:%M') }}
+            </option>
+         % }
+         </select>
+      </div>
+
+      <div class="Form-item">
+         <label>Type</label>
+         <select name="type" disabled="disabled">
+            <option value="fixed">Fixed teams</option>
+            <option value="random">Random teams</option>
+         </select>
+      </div>
+
+      <div class="Form-item">
+         <label>Number of teams</label>
+         <select name="teams" class="Fixture-form--teams">
+         % for my $i (3..@$colors) {
+            <option value="{{= $i }}" {{== 'selected="selected"' if $i == 3 }}>{{= $i }}</option>
+         % }
+         </select>
+      </div>
+
+      <div class="Form-item">
+         <label class="invisible">Button</label>
+         <button class="Fixture-form--generate-teams" type="button">Generate teams</button>
+      </div>
+   </div>
+
+   <div class="Form-item">
+      <div class="Teams">
+      % for my $i (0..$#$colors) {
+         <div class="Team {{= $colors->[$i] }} {{= 'hidden' if $i > 2 }}">
+            <div class="Team-players">
+               <textarea name="team" placeholder="Players" rows="1" cols="999"></textarea>
+            </div>
+         </div>
+      % }
+      </div>
+   </div>
+
+   <div class="Form-group five">
+      <div class="Form-item">
+         <label>Number of games</label>
+         <select name="games" class="Fixture-form--games">
+         % for my $i (1..20) {
+            <option value="{{= $i }}" {{== 'selected="selected"' if $i == 5 }}>{{= $i }}</option>
+         % }
+         </select>
+      </div>
+
+      <div class="Form-item">
+         <label>Color Penalty</label>
+         <select name="color" class="Fixture-form--games">
+         % for my $i (@$pens) {
+            <option value="{{= $i }}" {{== 'selected="selected"' if $i == 20 }}>{{= $i }}</option>
+         % }
+         </select>
+      </div>
+
+      <div class="Form-item">
+         <label>Pair Penalty</label>
+         <select name="pair" class="Fixture-form--games">
+         % for my $i (@$pens) {
+            <option value="{{= $i }}" {{== 'selected="selected"' if $i == 10 }}>{{= $i }}</option>
+         % }
+         </select>
+      </div>
+
+      <div class="Form-item">
+         <label>Step Penalty</label>
+         <select name="step" class="Fixture-form--games">
+         % for my $i (@$pens) {
+            <option value="{{= $i }}" {{== 'selected="selected"' if $i == 1 }}>{{= $i }}</option>
+         % }
+         </select>
+      </div>
+
+      <div class="Form-item">
+         <label class="invisible">Button</label>
+         <button class="Fixture-form--generate-draw" type="button">Generate draw</button>
+      </div>
+   </div>
+
+   <div class="Form-item" id="draw"></div>
+
+   <div class="Form-item Fixture-form--submit hidden">
+      <input type="submit" value="Create fixture">
+   </div>
+</form>

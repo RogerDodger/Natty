@@ -8,6 +8,8 @@ __PACKAGE__->add_columns(
    { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
    "game_id",
    { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+   "preset_id",
+   { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
    "color",
    { data_type => "text", is_nullable => 0 },
    "score",
@@ -19,6 +21,7 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->belongs_to('game', 'Natty::Schema::Result::Game', 'game_id');
+__PACKAGE__->belongs_to('preset', 'Natty::Schema::Result::Preset', 'preset_id');
 __PACKAGE__->has_many('team_players', 'Natty::Schema::Result::TeamPlayer', "team_id");
 
 __PACKAGE__->many_to_many('players', 'team_players', 'player_id');

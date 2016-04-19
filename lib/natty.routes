@@ -1,4 +1,4 @@
-GET / -> Game.list (games)
+GET / -> Fixture.list (games)
 
 GET /login -> User.login
 GET /logout -> User.logout
@@ -9,17 +9,25 @@ GET /player/ratings -> Player.ratings
 ANY / -> User.authd {
    POST /player/add -> Player.add
 
-   GET /game/create -> Game.create
-   GET /game/draw -> Game.draw
+   GET /game/random -> Game.random
+   POST /game/add   -> Game.add
 
-   POST /game/add -> Game.add
-
-   ANY /game/:id/ -> Game.fetch {
+   ANY /game/:gid/ -> Game.fetch {
       POST /score -> Game.score
    }
+
+   GET /team/generate -> Team.generate
+
+   GET  /fixture/create -> Fixture.create
+   GET  /fixture/draw   -> Fixture.draw
+   POST /fixture/add    -> Fixture.create (fixture-add)
+
 
    POST /player/all/online  -> Player.online_all
    POST /player/all/offline -> Player.offline_all
    POST /player/:pid/online -> Player.online
 }
 
+ANY /fixture/:fid -> Fixture.fetch {
+   GET / -> Fixture.view
+}

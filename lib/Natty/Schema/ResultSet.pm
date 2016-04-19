@@ -16,7 +16,7 @@ sub parse_datetime {
 
 sub find_maybe {
    my ($self, $id) = @_;
-   $id =~ /^(\d+)$/ ? $self->find(int $1) : undef;
+   ($id // '') =~ /^(\d+)$/ ? $self->find(int $1) : undef;
 }
 
 sub order_by {

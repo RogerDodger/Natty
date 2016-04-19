@@ -4,7 +4,7 @@ use Mojo::Base 'Exporter';
 use Algorithm::Combinatorics qw/permutations/;
 use Carp qw/croak/;
 use Data::Dump;
-use List::Util qw/max/;
+use List::Util qw/shuffle max/;
 use POSIX qw/ceil floor/;
 
 our @EXPORT_OK = qw/get_draw/;
@@ -13,48 +13,52 @@ sub pairwise;
 sub pick;
 
 sub get {
-   my $conf = shift // {};
-
-   # Return values
-   my @best;
-   my $stats = shift // {};
+   my %conf = ref $_[0] eq 'HASH' ? %{ +shift } : @_;
 
    my $size  = 3;
-   my $teams = $conf->{teams} // 5;
-   my $games = $conf->{games} // $teams;
-   my $tries = $conf->{tries} // 20_000;
+   my $teams = $conf{teams} // 5;
+   my $games = $conf{games} // $teams;
+   my $tries = $conf{tries} // 5_000;
 
    croak "Not enough teams (min $size)\n" if $teams < $size;
    croak "Too many teams (max 10)\n" if $teams > 10;
 
+   # In the case of small $teams and large $games, we may have more @matches
+   # than $games, in which case we just repeat the list -- it doesn't make
+   # sense in this case to care about duplicates
+   my @matches;
+   while (@matches < $games) {
+      # $teams! matches -- okay since if we restrict to less than 10 teams
+      @matches = (@matches, permutations [0 .. $teams-1]);
+   }
+
    # Number of games each team plays
    my $topGame = ($size / $teams * $games);
-   my $penGame = 400;
+   my $penGame = 1000;
 
    # Number of times a team gets the same colour
    my $topColor = ($topGame / $size);
-   my $penColor = 20;
+   my $penColor = $conf{pen}{color} // 20;
 
    # Number of times a team plays another team
    my $topPair = (2 * $topGame / ($teams - 1));
-   my $penPair = 10;
+   my $penPair = $conf{pen}{pair} // 10;
 
    # Number of games a team has between games
    my $topStep = 1 + ($games - $topGame) / $topGame;
-   my $penStep = 1;
-
-   # n! matches -- okay since if we restrict to less than 10 teams
-   my @matches = permutations [0 .. $teams-1];
+   my $penStep = $conf{pen}{step} // 1;
 
    # Brute force ;3
    # Take random sample of matches and take the best one
-
+   my %best;
    SAMPLE: for (1..$tries) {
       my @picks = pick \@matches, $games;
 
-      if (!@best) {
-         @best = \@picks;
-         %$stats = ( pen => { sum => 1e20 });
+      if (!%best) {
+         %best = (
+            pen => { sum => 1e20 },
+            matches => \@picks,
+         );
          next;
       }
 
@@ -89,9 +93,9 @@ sub get {
       }
       $pen{sum} = List::Util::sum values %pen;
 
-      if ($stats->{pen}{sum} > $pen{sum}) {
-         @best = @picks;
-         %$stats = (
+      if ($best{pen}{sum} > $pen{sum}) {
+         %best = (
+            matches => \@picks,
             pen => \%pen,
             colors => \@colors,
             pairs => \@pairs,
@@ -101,11 +105,11 @@ sub get {
       }
    }
 
-   for $_ (@best) {
+   for $_ (@{ $best{matches} }) {
       pop @$_ while $#$_ > $size - 1;
    }
 
-   \@best;
+   \%best;
 }
 
 BEGIN { *get_draw = \&get }
@@ -119,13 +123,25 @@ sub pairwise {
    @ret;
 }
 
-# It's not actually important to avoid duplicates since they are both unlikely
-# and will just fail the constraints in the main loop much quicker than we can
-# guarantee no duplicates
+
+# This is faster than Fishter-Yates because $array is very big and $n is very
+# small. Technically non-deterministic... but that doesn't actually matter ;p
 sub pick {
    my ($array, $n) = @_;
 
-   my @picks = map $array->[int rand $#$array], 1..$n;
+   # If array is small enough, do shuffle instead
+   if ($#$array / 2 < $n) {
+      return +(shuffle @$array)[0..$n-1];
+   }
+
+   my @picks;
+   my %picked;
+   while ($n-- > 0) {
+      my $pick = int rand $#$array;
+      redo if $picked{$pick};
+      push @picks, $array->[$pick];
+      $picked{$pick} = 1;
+   }
    return @picks;
 }
 

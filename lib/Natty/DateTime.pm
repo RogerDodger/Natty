@@ -30,7 +30,7 @@ sub DateTime::delta {
 sub DateTime::delta_html {
    my $self = shift;
 
-   return sprintf '<time class="delta" title="%s" datetime="%sZ">%s</time>',
+   sprintf '<time class="delta" title="%s" datetime="%sZ">%s</time>',
       $self->rfc2822,
       $self->iso8601,
       $self->delta;
@@ -39,7 +39,7 @@ sub DateTime::delta_html {
 sub DateTime::date_html {
    my $self = shift;
 
-   return sprintf '<time class="date" title="%s" datetime="%sZ">%s</time>',
+   sprintf '<time class="date" title="%s" datetime="%sZ">%s</time>',
       $self->rfc2822,
       $self->iso8601,
       $self->strftime('%d %b %Y');
@@ -48,7 +48,7 @@ sub DateTime::date_html {
 sub DateTime::datetime_html {
    my $self = shift;
 
-   return sprintf '<time class="datetime" title="%s" datetime="%sZ">%s</time>',
+   sprintf '<time class="datetime" title="%s" datetime="%sZ">%s</time>',
       $self->rfc2822,
       $self->iso8601,
       $self->strftime('%d %b %Y %T %z');

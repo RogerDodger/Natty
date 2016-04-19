@@ -18,7 +18,10 @@
          <nav class="Site-header">
             <div class="Site-header--container">
                <ul class="Site-header--global">
-                  <li class="Site-logo"><a href="/">Natty</a>
+                  <li class="Site-logo">
+                     <a href="/">Natty</a>
+                     <span class="Site-logo--beta">alpha</span>
+                  </li>
                   <li><a href="/player/ratings">Ratings</a>
                </ul>
 
@@ -33,9 +36,9 @@
             </div>
          </nav>
          <div class="Site-content">
-            % if (flash 'error_msg') {
+            % if (flash('error_msg') // stash('error_msg')) {
             <div class="Flash error">
-               {{= flash 'error_msg' }}
+               {{= flash('error_msg') // stash('error_msg') }}
             </div>
             % }
 
