@@ -17,20 +17,46 @@ $(document).ajaxError(function (e, xhr) {
 });
 
 // ===========================================================================
-// Player online buttons
+// Player panel buttons
 // ===========================================================================
 
 $(document).ready(function () {
    var q = $.when();
+
+   $('.Team-player--swap .fa-exchange').click(function (e) {
+      $('.Team-player').removeClass('subbing');
+      $(this).closest('.Team-player').addClass('subbing');
+   });
+
+   $('.Team-player--swap .fa-close').click(function () {
+      $('.Team-player').removeClass('subbing');
+   });
+
    var $players = $('.Player');
 
    $players.click(function (e) {
       e.preventDefault();
       var $row = $(this);
       var $form = $row.find('form');
+      var $player = $('.subbing');
 
-      q = q.then(
-         $.ajax({
+      q = q.then($player.size()
+         ? $.ajax({
+            method: "POST",
+            url: "/team/sub",
+            data: {
+               team_id: $player.closest('.Team').attr('data-id'),
+               oldp_id: $player.attr('data-id'),
+               newp_id: $row.attr('data-id'),
+            },
+            success: function(res) {
+               $player.removeClass('subbing');
+               $player.attr('data-id', res.id);
+               $player.find('.Team-player--name').text(res.tag);
+               $player.find('.Team-player--rating').text(res.mu);
+            },
+         })
+         : $.ajax({
             method: "POST",
             url: $form.attr('action'),
             success: function(res) {

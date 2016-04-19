@@ -37,4 +37,36 @@ sub generate {
    $c->render(json => \%best);
 }
 
+sub sub {
+  my $c = shift;
+
+  my $tp = $c->db('TeamPlayer')->find($c->parami('oldp_id'), $c->parami('team_id'));
+  my $sub = $c->db('RatingX')->search(
+    { player_id => $c->parami('newp_id') },
+    { bind => [ 1 ] },
+  )->first;
+
+  if ($tp && $sub) {
+    my $game = $tp->team->game;
+
+    return $c->reply->exception if $game->finished || $game->teams->search(
+      { player_id => $sub->player_id },
+      {
+        join => { 'team_players' },
+      },
+    )->count;
+
+    $tp->update({ player_id => $sub->player_id });
+    return $c->respond_to(
+      ajax => { json => {
+        id => $sub->player_id,
+        tag => $sub->player_tag,
+        mu => (sprintf "%.2f", $sub->mu),
+      }},
+    )
+  }
+
+  $c->reply->exception;
+}
+
 1;

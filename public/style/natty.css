@@ -288,7 +288,7 @@ a {
 /*
  * Hide from both screenreaders and browsers: h5bp.com/u
  */
-.hidden {
+.hidden, .Team-player.subbing .fa-exchange, .Team-player:not(.subbing) .fa-close {
   display: none !important;
   visibility: hidden; }
 
@@ -602,7 +602,7 @@ body {
   display: inline-block;
   margin: 0.5em;
   text-align: center;
-  width: 13em;
+  width: 13.5em;
   vertical-align: top; }
   .Team.red {
     background: #dbbdbd; }
@@ -675,14 +675,12 @@ body {
   margin: 0.3em auto; }
 
 .Team-player {
-  display: table-row; }
-  .Team-player > :first-child {
-    padding-left: 0.8rem; }
-  .Team-player > :last-child {
-    padding-right: 0.8rem; }
+  display: table-row;
+  position: relative; }
   .Team-player.placeholder {
     color: #666; }
 
+.Team-player--swap,
 .Team-player--name,
 .Team-player--rating,
 .Team-player--delta {
@@ -690,16 +688,27 @@ body {
   vertical-align: middle;
   white-space: nowrap; }
 
-.Team-player--delta {
+.Team-player--delta,
+.Team-player--swap {
   font-size: 0.85em; }
+
+.Team-player.subbing {
+  outline: dotted 1px; }
+
+.Team-player--swap {
+  padding-left: 0.8em; }
+  .Team-player--swap .fa {
+    cursor: pointer; }
 
 .Team-player--rating,
 .Team-player--delta {
   padding: 0.4em 0.2em; }
+  .Team-player--rating:last-child,
+  .Team-player--delta:last-child {
+    padding-right: 0.8em; }
 
 .Team-player--name {
-  width: 100%;
-  padding: 0.4em 0.8em; }
+  width: 100%; }
 
 .Fixture-form--generate-teams,
 .Fixture-form--generate-draw {

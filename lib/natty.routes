@@ -17,6 +17,7 @@ ANY / -> User.authd {
    }
 
    GET /team/generate -> Team.generate
+   POST /team/sub -> Team.sub
 
    GET  /fixture/create -> Fixture.create
    GET  /fixture/draw   -> Fixture.draw

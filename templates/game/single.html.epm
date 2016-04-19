@@ -9,7 +9,7 @@
    % }
       <div class="Teams">
       % for my $team ($game->teams) {
-         <div class="Team {{= $team->color }}">
+         <div class="Team {{= $team->color }}" data-id="{{= $team->id }}">
             <div class="Team-score">
                % if ($form) {
                   <input type="text" name="team{{= $team->id }}"
@@ -23,7 +23,13 @@
 
             <div class="Team-players">
             % for my $player ($team->playersx->all) {
-               <div class="Team-player">
+               <div class="Team-player" data-id="{{= $player->id }}">
+                  % if (user() && !$game->finished) {
+                  <div class="Team-player--swap" title="Sub player">
+                     <i class="fa fa-exchange"></i>
+                     <i class="fa fa-close"></i>
+                  </div>
+                  % }
                   <div class="Team-player--name">{{= $player->tag }}</div>
                   <div class="Team-player--rating">
                      {{= sprintf "%.2f", $player->mu }}

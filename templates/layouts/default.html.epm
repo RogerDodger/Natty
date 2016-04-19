@@ -50,7 +50,7 @@
       <div class="Admin-panel">
          <div class="Players-panel">
             % for my $player ($players->all) {
-            <div class="Player {{= 'online' if config('onlineCache')->get($player->id) }}">
+            <div class="Player {{= 'online' if config('onlineCache')->get($player->id) }}" data-id="{{= $player->id }}">
                <div class="Player-tag">
                   {{= $player->tag }}
                </div>

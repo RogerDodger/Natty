@@ -257,7 +257,7 @@ body {
    display: inline-block;
    margin: 0.5em;
    text-align: center;
-   width: 13em;
+   width: 13.5em;
    vertical-align: top;
 
    $sat: 50%;
@@ -303,20 +303,14 @@ body {
 
 .Team-player {
    display: table-row;
-
-   & > :first-child {
-      padding-left: 0.8rem;
-   }
-
-   & > :last-child {
-      padding-right: 0.8rem;
-   }
+   position: relative;
 
    &.placeholder {
       color: #666;
    }
 }
 
+.Team-player--swap,
 .Team-player--name,
 .Team-player--rating,
 .Team-player--delta {
@@ -325,18 +319,42 @@ body {
    white-space: nowrap;
 }
 
-.Team-player--delta {
+.Team-player--delta,
+.Team-player--swap {
    font-size: 0.85em;
+}
+
+.Team-player.subbing {
+   outline: dotted 1px;
+
+   .fa-exchange {
+      @extend .hidden;
+   }
+}
+
+.Team-player:not(.subbing) .fa-close {
+   @extend .hidden;
+}
+
+.Team-player--swap {
+   padding-left: 0.8em;
+
+  .fa {
+      cursor: pointer;
+   }
 }
 
 .Team-player--rating,
 .Team-player--delta {
    padding: 0.4em 0.2em;
+
+   &:last-child {
+      padding-right: 0.8em;
+   }
 }
 
 .Team-player--name {
    width: 100%;
-   padding: 0.4em 0.8em;
 }
 
 .Fixture-form {
