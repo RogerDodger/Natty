@@ -19,6 +19,7 @@ my @production = qw/
    DateTime::Format::RFC3339
    CHI
    CHI::Driver::FastMmap
+   Algorithm::Combinatorics
 /;
 
 my @development = qw/

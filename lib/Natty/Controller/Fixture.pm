@@ -74,7 +74,7 @@ sub add {
          }
       }
 
-      $t->add(minutes => 18);
+      $t->add(minutes => 15);
    }
    $c->db('TeamPlayer')->populate(\@tp);
 
