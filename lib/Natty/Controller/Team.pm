@@ -43,7 +43,7 @@ sub sub {
   my $tp = $c->db('TeamPlayer')->find($c->parami('oldp_id'), $c->parami('team_id'));
   my $sub = $c->db('RatingX')->search(
     { player_id => $c->parami('newp_id') },
-    { bind => [ 1 ] },
+    { bind => [ $tp->team->game->fixture->mode_id ] },
   )->first;
 
   if ($tp && $sub) {

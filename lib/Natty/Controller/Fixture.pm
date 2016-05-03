@@ -19,7 +19,9 @@ sub add {
 
    my $t = DateTime::Format::RFC3339->parse_datetime($c->paramo('start')) and
    my $teams = $c->parami('teams') and
-   my $games = $c->parami('games') or return $c->reply->exception;
+   my $games = $c->parami('games') and
+   my $mode = $c->db('Mode')->find_maybe($c->param('mode'))
+      or return $c->reply->exception("Bad input");
 
    my $draw64 = $c->config->{drawCache}->get($c->paramo('draw'))
       or return $c->stash->{error_msg} = 'Draw expired';
@@ -37,7 +39,7 @@ sub add {
    }
 
    my $fixture = $c->db('Fixture')->create({
-      mode_id => 1,
+      mode_id => $mode->id,
       draw => $draw64,
       start => $t,
    });

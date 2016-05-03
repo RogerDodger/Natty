@@ -1,4 +1,6 @@
 % layout 'default';
 % title 'Error';
 
-<p>{{= $exception->message }}</p>
+<h1>Woops!</h1>
+
+<p>{{= $exception }}</p>

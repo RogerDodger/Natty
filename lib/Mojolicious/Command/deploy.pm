@@ -20,6 +20,7 @@ sub run {
 
       $s->deploy;
       $s->resultset('Mode')->populate([
+         { name => "League" },
          { name => "Nats" },
          { name => "LotR" },
       ])

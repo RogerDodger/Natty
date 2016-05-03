@@ -5,10 +5,11 @@
    <div class="Form-group five">
       <div class="Form-item">
          <label>Mode</label>
-         <select disabled="disabled">
-            <option value="1">Nats</option>
+         <select name="mode">
+         % for my $mode ($modes->all) {
+            <option value="{{= $mode->id }}">{{= $mode->name }}</option>
+         % }
          </select>
-         <input type="hidden" name="mode" value="nats">
       </div>
 
       <div class="Form-item">
