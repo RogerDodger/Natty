@@ -5,7 +5,7 @@ use DateTime::Format::RFC3339;
 use List::Util qw/min shuffle/;
 use Mojo::JSON qw/encode_json/;
 use Mojo::Util qw/steady_time b64_encode/;
-use Natty::Draw qw/get_draw/;
+use Natty::Draw qw/gen_draw/;
 use feature qw/fc/;
 
 sub fetch {
@@ -100,7 +100,7 @@ sub create {
 sub draw {
    my $c = shift;
 
-   my $draw = get_draw(
+   my $draw = gen_draw(
       games => $c->parami('games') // 5,
       teams => $c->parami('teams') // 5,
       pen => {
