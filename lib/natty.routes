@@ -19,9 +19,10 @@ ANY / -> User.authd {
    GET /team/generate -> Team.generate
    POST /team/sub -> Team.sub
 
-   GET  /fixture/create -> Fixture.create
-   GET  /fixture/draw   -> Fixture.draw
-   POST /fixture/add    -> Fixture.create (fixture-add)
+   GET  /fixture/create   -> Fixture.create
+   GET  /fixture/draw-get -> Fixture.draw_get
+   GET  /fixture/draw-gen -> Fixture.draw_gen
+   POST /fixture/add      -> Fixture.create (fixture-add)
 
 
    POST /player/all/online  -> Player.online_all

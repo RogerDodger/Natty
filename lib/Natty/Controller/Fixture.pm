@@ -17,6 +17,8 @@ sub add {
    my $c = shift;
    my $players = $c->db('Player');
 
+   my $gamelen = $c->parami('gamelen') // 15;
+
    my $t = DateTime::Format::RFC3339->parse_datetime($c->paramo('start')) and
    my $teams = $c->parami('teams') and
    my $games = $c->parami('games') and
@@ -51,7 +53,7 @@ sub add {
 
    my @tp;
    for my $match (@{ $draw->{matches} }) {
-      my @colors = qw/blue red green/;
+      my @colors = qw/red blue green/;
       my $game = $fixture->create_related('games', { scheduled => $t });
       for my $ti (@$match) {
          my $team = $game->create_related('teams', {
@@ -74,7 +76,7 @@ sub add {
          }
       }
 
-      $t->add(minutes => 15);
+      $t->add(minutes => $gamelen);
    }
    $c->db('TeamPlayer')->populate(\@tp);
 
@@ -89,15 +91,16 @@ sub create {
 
    $c->stash->{times} = [ map $t0->clone->add(minutes => $_ * 5), (0..12) ];
    $c->stash->{modes} = $c->db('Mode');
-   $c->stash->{colors} = [ qw/blue red green orange cyan purple yellow pink/ ];
+   $c->stash->{colors} = [ qw/red blue green orange cyan purple yellow pink/ ];
    $c->stash->{pens} = [ 1..5, 8, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100 ];
+   $c->stash->{gamelens} = [ 1..5, 8, 10, 12, 15, 20, 25, 30 ];
 
    $c->add if $c->req->method eq 'POST';
 
    $c->render;
 }
 
-sub draw {
+sub draw_gen {
    my $c = shift;
 
    my $draw = gen_draw(
@@ -113,7 +116,17 @@ sub draw {
    $draw->{id} = steady_time;
    $c->config->{drawCache}->set($draw->{id}, b64_encode encode_json $draw);
 
-   $c->render(format => 'html', draw => $draw);
+   $c->render(format => 'html', draw => $draw, template => 'fixture/draw');
+}
+
+sub draw_get {
+   my $c = shift;
+
+   my $draw = $Natty::Draw::PRESETS{$c->paramo('preset')}
+      or return $c->reply->exception('Bad input');
+   $c->config->{drawCache}->set($draw->{id}, b64_encode encode_json $draw);
+
+   $c->render(format => 'html', draw => $draw, template => 'fixture/draw');
 }
 
 sub list {

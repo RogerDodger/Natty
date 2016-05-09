@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   box-sizing: border-box; }
 
@@ -711,8 +712,23 @@ body {
   width: 100%; }
 
 .Fixture-form--generate-teams,
-.Fixture-form--generate-draw {
+.Fixture-form--generate-draw,
+.Fixture-form--get-draw {
   padding: 0.2em 0.4em; }
+
+.Fixture-form--or {
+  text-align: center;
+  margin-top: 0.3em; }
+  .Fixture-form--or::before, .Fixture-form--or::after {
+    content: " — "; }
+
+.Fixture-form--preset {
+  text-align: center; }
+  .Fixture-form--preset > .Form-item {
+    margin-top: 0 !important;
+    display: inline-block;
+    text-align: start;
+    float: none; }
 
 .Game-score--submit {
   text-align: center; }

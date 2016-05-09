@@ -17,8 +17,8 @@ sub startup {
       name     => 'epm',
       template => {
          tag_start => '{{',
-         tag_end   => '}}'
-      }
+         tag_end   => '}}',
+      },
    });
 
    $self->config({
@@ -32,9 +32,11 @@ sub startup {
       drawCache => CHI->new(
          driver => 'FastMmap',
          namespace => 'draw',
-         expires_in => '1h',
+         expires_in => '1d',
       ),
    });
+
+   $self->sessions->default_expiration(86400);
 
    $self->hook(before_routes => sub {
       my $c = shift;

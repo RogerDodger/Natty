@@ -5,11 +5,13 @@ use Algorithm::Combinatorics qw/permutations/;
 use Carp qw/croak/;
 use Data::Dump;
 use List::Util qw/shuffle max/;
+use Mojo::Util qw/md5_sum/;
 use Mojo::Loader qw/data_section/;
 use POSIX qw/ceil floor/;
 
-our @EXPORT_OK = qw/gen_draw/;
+our @EXPORT_OK = qw/gen_draw get_draw/;
 our @PRESETS;
+our %PRESETS;
 
 sub pairwise;
 sub pick;
@@ -26,13 +28,22 @@ PARSE_PRESETS: {
             int $_;
          } split /\s+/
       ]} split /\n/, $preset;
+      $teams++;
 
-      push @PRESETS, {
+      my $id = md5_sum $preset;
+      my %p = (
          _stats(\@picks, $size, $teams),
          teams => $teams,
          matches => \@picks,
-      };
+         id => $id,
+         name => scalar(@picks) . 'g.' . substr($id, 0, 6),
+      );
+
+      push @PRESETS, \%p;
+      $PRESETS{$id} = \%p;
    }
+
+   @PRESETS = sort { @{ $a->{matches} } <=> @{ $b->{matches} } } @PRESETS;
 }
 
 sub _stats {
@@ -75,7 +86,7 @@ sub gen {
    my $size  = 3;
    my $teams = $conf{teams} // 5;
    my $games = $conf{games} // $teams;
-   my $tries = $conf{tries} // 5_000;
+   my $tries = $conf{tries} // 10_000;
 
    croak "Not enough teams (min $size)\n" if $teams < $size;
    croak "Too many teams (max 10)\n" if $teams > 10;
@@ -126,7 +137,7 @@ sub gen {
          $pen{game}  += $penGame  * abs($topGame  - $s{games}[$i]);
          $pen{color} += $penColor * abs($topColor - $s{colors}[$i][$_]) for 0..$size-1;
          $pen{pair}  += $penPair  * abs($topPair  - $s{pairs}[$i][$_]) for $i+1..$teams-1;
-         $pen{step}  += $penStep  * abs($topStep  - $_->[1] - $_->[0]) for pairwise $s{steps}[$i];
+         $pen{step}  += $penStep  * abs($topStep  - $_->[1] + $_->[0]) for pairwise $s{steps}[$i];
       }
       $pen{sum} = List::Util::sum values %pen;
 
@@ -190,3 +201,39 @@ __DATA__
 4 2 0
 2 3 1
 3 0 4
+
+2 0 4
+4 5 3
+3 1 2
+0 4 5
+5 2 1
+1 3 0
+
+0 1 4
+2 0 3
+5 4 2
+3 5 1
+
+2 4 0
+0 5 3
+4 0 5
+5 3 2
+3 1 4
+1 2 0
+5 4 1
+2 1 3
+
+0 1 2
+2 0 1
+1 2 0
+
+1 0 2
+2 1 0
+0 2 1
+
+0 1 2
+2 0 1
+1 2 0
+2 1 0
+0 2 1
+1 0 2

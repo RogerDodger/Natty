@@ -362,8 +362,30 @@ body {
 }
 
 .Fixture-form--generate-teams,
-.Fixture-form--generate-draw {
+.Fixture-form--generate-draw,
+.Fixture-form--get-draw {
    padding: 0.2em 0.4em;
+}
+
+.Fixture-form--or {
+   text-align: center;
+   margin-top: 0.3em;
+
+   &::before,
+   &::after {
+      content: " — ";
+   }
+}
+
+.Fixture-form--preset {
+   text-align: center;
+
+   & > .Form-item {
+      margin-top: 0 !important;
+      display: inline-block;
+      text-align: start;
+      float: none;
+   }
 }
 
 .Game-score--submit {

@@ -122,10 +122,22 @@ $(document).ready(function () {
 
    $('.Fixture-form--teams')
       .change(function () {
+         var n = this.value;
+
          $('#draw').empty();
          $('.Fixture-form--submit').addClass('hidden');
 
-         var n = this.value;
+         var $presetContainers = $('.Fixture-form--or, .Fixture-form--preset');
+         var $presets = $('[name="preset"] option').addClass('hidden');
+         var $validPresets = $presets.filter('[data-teams="' + n + '"]').removeClass('hidden');
+         if ($validPresets.size()) {
+            $validPresets.get(0).selected = true;
+            $presetContainers.removeClass('hidden');
+         }
+         else {
+            $presetContainers.addClass('hidden');
+         }
+
          $('.Team').each(function (i) {
             if (i < n) {
                $(this).removeClass('hidden');
@@ -159,19 +171,24 @@ $(document).ready(function () {
       });
    });
 
-   $('.Fixture-form--generate-draw').click(function (e) {
-      var $btn = $(this).addClass('loading');
-      $.ajax({
-         method: 'GET',
-         url: '/fixture/draw',
-         data: $btn.closest('form').serialize(),
-         success: function (res) {
-            $('#draw').html(res);
-            $('.Fixture-form--submit').removeClass('hidden');
-         },
-         complete: function () {
-            $btn.removeClass('loading');
-         }
-      });
-   });
+   var d = function (url) {
+      return function (e) {
+         var $btn = $(this).addClass('loading');
+         $.ajax({
+            method: 'GET',
+            url: url,
+            data: $btn.closest('form').serialize(),
+            success: function (res) {
+               $('#draw').html(res);
+               $('.Fixture-form--submit').removeClass('hidden');
+            },
+            complete: function () {
+               $btn.removeClass('loading');
+            }
+         });
+      };
+   };
+
+   $('.Fixture-form--generate-draw').click(d('/fixture/draw-gen'));
+   $('.Fixture-form--get-draw').click(d('/fixture/draw-get'));
 });
