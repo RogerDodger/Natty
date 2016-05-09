@@ -32,13 +32,16 @@ sub add {
    for (0..$teams-1) {
       my $str = $teams[$_] or return $c->stash->{error_msg} = "Team $_ is empty!";
       my $team = $teams[$_] = [];
-      for (shuffle split /\s+/, $str) {
+      for (split /\s+/, $str) {
          my $player = $players->search({ tag_normalised => fc $_ })->first
             or return $c->stash->{error_msg} = "Player $_ not found!";
 
          push $team, $player;
       }
    }
+
+   # The @teams array might have some dangling empty string params
+   @teams = @teams[0..$teams-1];
 
    my $fixture = $c->db('Fixture')->create({
       mode_id => $mode->id,
@@ -47,9 +50,7 @@ sub add {
    });
 
    my $draw = $c->db('Fixture')->find($fixture->id)->draw;
-   my @teamsAsc = sort { $#$a <=> $#$b } shuffle map { $teams[$_] } 0..$teams-1;
-   my @priority = sort { $draw->{games}[$a] <=> $draw->{games}[$b] } 0..$teams-1;
-   my $teamSize = @{ $teamsAsc[0] };
+   my $teamSize = min map { scalar @$_ } @teams;
 
    my @tp;
    for my $match (@{ $draw->{matches} }) {
@@ -60,7 +61,7 @@ sub add {
             color => shift @colors,
          });
 
-         my $players = $teamsAsc[$priority[$ti]];
+         my $players = $teams[$ti];
          for my $pi (0..$teamSize-1) {
             push @tp, {
                team_id => $team->id,
@@ -71,7 +72,7 @@ sub add {
          # Rotate the players on the team by the number of players it exceeds
          # the teamSize, such that each player on the team gets as equal
          # number of games as possible
-         for ($teamSize..@$players) {
+         for ($teamSize..$#$players) {
             push @$players, shift @$players;
          }
       }
