@@ -88,6 +88,7 @@ sub create {
    my $c = shift;
 
    my $t0 = $c->stash->{now}->clone;
+   $t0->set(second => 0);
    $t0->add(minutes => 5 - $t0->min % 5);
 
    $c->stash->{times} = [ map $t0->clone->add(minutes => $_ * 5), (0..12) ];
