@@ -11,24 +11,20 @@ __PACKAGE__->result_source_instance->view_definition(q{
       r.mu AS mu,
       r.sigma AS sigma,
       (r.mu - 2 * r.sigma * r.sigma) AS theta,
-      count(rl.player_id) AS games
+      (
+         SELECT COUNT(*)
+         FROM rating_logs rl
+         LEFT JOIN games g
+            ON g.id = rl.game_id
+         LEFT JOIN fixtures f
+            ON f.id = g.fixture_id
+         WHERE rl.player_id = r.player_id
+         AND f.mode_id = r.mode_id
+      ) AS games
    FROM ratings r
    LEFT JOIN players p
       ON p.id = r.player_id
-   LEFT JOIN team_players tp
-      ON tp.player_id = r.player_id
-   LEFT JOIN teams t
-      ON t.id = tp.team_id
-   LEFT JOIN games g
-      ON g.id = t.game_id
-   LEFT JOIN fixtures f
-      ON f.id = g.fixture_id
-   LEFT JOIN rating_logs rl
-      ON rl.player_id = r.player_id
-      AND rl.game_id = g.id
-
    WHERE r.mode_id = ?
-   AND f.mode_id = r.mode_id
    GROUP BY r.player_id
    ORDER BY mu DESC, sigma ASC, p.tag_normalised ASC
 });
