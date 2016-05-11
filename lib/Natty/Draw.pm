@@ -35,6 +35,7 @@ PARSE_PRESETS: {
          _stats(\@picks, $size, $teams),
          teams => $teams,
          matches => \@picks,
+         rounds => scalar @picks,
          id => $id,
          name => scalar(@picks) . 'g.' . substr($id, 0, 6),
       );
@@ -42,8 +43,6 @@ PARSE_PRESETS: {
       push @PRESETS, \%p;
       $PRESETS{$id} = \%p;
    }
-
-   @PRESETS = sort { @{ $a->{matches} } <=> @{ $b->{matches} } } @PRESETS;
 }
 
 sub _stats {
@@ -245,3 +244,11 @@ __DATA__
 4 1 6
 5 2 0
 6 3 1
+
+0 1 2
+1 3 4
+2 4 5
+3 2 6
+4 6 0
+5 0 3
+6 5 1

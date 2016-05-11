@@ -108,7 +108,7 @@
       <div class="Form-item">
          <label>Preset</label>
          <select name="preset">
-            % for my $preset (@Natty::Draw::PRESETS) {
+            % for my $preset (sort { $a->{rounds} <=> $b->{rounds} } @Natty::Draw::PRESETS) {
             <option value="{{= $preset->{id} }}" data-teams="{{= $preset->{teams} }}">
                {{= $preset->{name } }}
             </option>
