@@ -1,17 +1,3 @@
-Date.prototype.getShortMonth = function () {
-   return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][this.getMonth()];
-};
-
-Number.prototype.zeropad = function(n) {
-   var str = "" + this;
-   var len = n - str.length;
-   var pad = "";
-   while (len-- > 0) {
-      pad += "0";
-   }
-   return pad + str;
-};
-
 $(document).ajaxError(function (e, xhr) {
    alert(xhr.status + " " + xhr.statusText);
 });

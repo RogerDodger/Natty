@@ -88,7 +88,7 @@ sub Mojolicious::Controller::paramo {
 }
 
 sub Mojolicious::Controller::parami {
-   shift->paramo(shift) =~ /(\d+)/ ? $1 : undef;
+   shift->paramo(shift) =~ /(\d+)/ ? int $1 : undef;
 }
 
 1;

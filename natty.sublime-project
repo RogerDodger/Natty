@@ -15,9 +15,16 @@
    "build_systems":
    [
       {
-         "name": "Natty-sass",
-         "cmd": ["./build.sh"],
-         "selector": "source.scss"
+         "name": "Moxer-sass",
+         "selector": "source.scss",
+         "working_dir": "${project_path}",
+         "cmd": ["make", "css"]
+      },
+      {
+         "name": "Moxer-jsmin",
+         "selector": "source.js",
+         "working_dir": "${project_path}",
+         "cmd": ["make", "js"]
       }
    ]
 }
