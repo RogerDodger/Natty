@@ -6,7 +6,9 @@ js_url = /js
 js_dir = public$(js_url)
 js_cat = awk 'BEGINFILE { printf "/* %s */;\n", FILENAME } { print } ENDFILE { print "" }'
 
-all: css js
+all: static draw
+
+static: css js
 
 css:
 	sass --sourcemap=none $(sass_src) $(sass_dest)
@@ -25,3 +27,6 @@ js-min:
 	         --source-map     $(js_dir)/natty.min.js.map \
 	         --source-map-url      $(js_url)/natty.min.js.map \
 	                          $(js_dir)/natty.js
+
+draw:
+	gcc -Wall -lm -o bin/draw lib/Natty/draw.c
