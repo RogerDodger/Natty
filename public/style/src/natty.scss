@@ -10,12 +10,27 @@ $panel-width: 12em;
 
 $selection-color: #b3d4fc;
 
+$team-colors: (
+   "red"    : ( "hue": 0,   "sat": 50% ),
+   "blue"   : ( "hue": 240, "sat": 50% ),
+   "green"  : ( "hue": 120, "sat": 50% ),
+   "orange" : ( "hue": 30,  "sat": 50% ),
+   "cyan"   : ( "hue": 200, "sat": 50% ),
+   "purple" : ( "hue": 270, "sat": 50% ),
+   "yellow" : ( "hue": 60,  "sat": 50% ),
+   "pink"   : ( "hue": 340, "sat": 50% ),
+   "grey"   : ( "hue": 0,   "sat": 0% )
+);
+
 // ===========================================================================
 // Natty
 // ===========================================================================
 
 @import 'global';
+@import 'typography';
+
 @import 'components';
 @import 'helpers';
 
 @import 'layout';
+@import 'draw';

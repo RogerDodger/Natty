@@ -6,8 +6,7 @@
 
       <title>{{= title }} • Natty</title>
 
-      <link rel="stylesheet" href="/style/normalize.css">
-      <link rel="stylesheet" href="/style/font-awesome.min.css">
+      <link rel="stylesheet" href="/style/vendor.css">
       <link rel="stylesheet" href="/style/natty.css">
    </head>
    <body>
@@ -20,6 +19,7 @@
                      <span class="Site-logo--beta">alpha</span>
                   </li>
                   <li><a href="/player/ratings">Ratings</a>
+                  <li><a href="/draws">Draws</a>
                </ul>
 
                <ul class="Site-header--user">

@@ -5,7 +5,7 @@ use DateTime::Format::RFC3339;
 use List::Util qw/min shuffle/;
 use Mojo::JSON qw/encode_json/;
 use Mojo::Util qw/steady_time b64_encode/;
-use Natty::Draw qw/gen_draw/;
+use Natty::Draw;
 use feature qw/fc/;
 
 sub fetch {

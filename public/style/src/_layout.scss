@@ -3,15 +3,19 @@
 // ===========================================================================
 
 body {
-   background-color: hsla(200, 50%, 99%, 1);
+   background-color: hsla(0, 0%, 98%, 1);
    color: #222;
    font-size: 100%;
 
-   padding-bottom: 1em;
+   padding-bottom: 100vh;
 }
 
 .loading:hover {
    cursor: wait;
+}
+
+.Document {
+   @include material;
 }
 
 .Site-header {
@@ -45,24 +49,24 @@ body {
             color: blue;
          }
       }
+   }
+}
 
-      .Site-logo {
-         position: relative;
+.Site-logo {
+   position: relative;
 
-         a {
-            font-weight: bold;
-         }
+   a {
+      font-weight: 500;
+   }
 
-         .Site-logo--beta {
-            @extend .noselect;
-            position: absolute;
-            right: 0;
-            bottom: -0.3em;
-            font-size: 0.7em;
-            font-weight: bold;
-            color: red;
-         }
-      }
+   .Site-logo--beta {
+      @extend .noselect;
+      position: absolute;
+      right: 0;
+      bottom: -0.3em;
+      font-size: 0.7em;
+      font-weight: 500;
+      color: red;
    }
 }
 
@@ -75,8 +79,13 @@ body {
 }
 
 .Site-content {
-   margin: 0 auto;
-   max-width: $container-width;
+   display: flex;
+   justify-content: center;
+
+   & > * {
+      flex-basis: $container-width;
+      max-width: 100vw;
+   }
 }
 
 .Admin-panel {
@@ -241,16 +250,6 @@ body {
    text-align: center;
 }
 
-@mixin team-color($hue: 0, $sat: 30%, $l: 80%) {
-   background: hsla($hue, $sat, $l, 1);
-   &, .Team-score {
-      border-color: hsla($hue, $sat, $l * .75, 1);
-   }
-   textarea {
-      background: hsla($hue, $sat, $l + (100% - $l) / 2, 1);
-   }
-}
-
 .Team {
    border-width: 0.12em;
    border-style: solid;
@@ -264,14 +263,28 @@ body {
    $l: 80%;
    $lb: $l * 0.75;
 
-   &.red    { @include team-color($hue: 0); }
-   &.green  { @include team-color($hue: 120); }
-   &.blue   { @include team-color($hue: 240); }
-   &.orange { @include team-color($hue: 30); }
-   &.cyan   { @include team-color($hue: 200); }
-   &.purple { @include team-color($hue: 300); }
-   &.yellow { @include team-color($hue: 60); }
-   &.pink   { @include team-color($hue: 330); }
+   @each $color, $map in $team-colors {
+      $hue: map_get($map, "hue");
+      $sat: map_get($map, "sat");
+      &.#{$color} {
+         background: hsla($hue, $sat * .3, 80%, 1);
+         &, .Team-score {
+            border-color: hsla($hue, $sat * .3, 60%, 1);
+         }
+         textarea {
+            background: hsla($hue, $sat * .3, 90%, 1);
+         }
+      }
+   }
+   &.grey {
+      background: hsla(0, 0%, 80%, 1);
+      &, .Team-score {
+         border-color: hsla(0, 0%, 60%, 1);
+      }
+      textarea {
+         background: hsla(0, 0%, 90%, 1);
+      }
+   }
 
    textarea {
       resize: none;

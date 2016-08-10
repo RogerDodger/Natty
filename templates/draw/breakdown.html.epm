@@ -1,0 +1,51 @@
+% my @matches = $draw->matches->@*;
+% my @timeline = $draw->timeline->@*;
+<div class="Draw-timeline">
+   <table>
+      <tr class="Draw-timeline--header">
+         <th></th>
+         % for my $round (1..@matches) {
+         <th>{{= $round }}</th>
+         % }
+      </tr>
+
+      % for my $team (0..$draw->teams-1) {
+      <tr>
+         <th>Team {{= $team + 1 }}</th>
+         % for my $round (@timeline) {
+            <td class="{{= $round->{$team} }}"></td>
+         % }
+      </tr>
+      % }
+   </table>
+</div>
+
+<div class="Draw-pairs">
+   <table>
+      <tr class="Draw-pairs--header">
+         <th></th>
+         % for my $team (1..$draw->teams) {
+         <th>{{= $team }}</th>
+         % }
+         <th></th>
+      </tr>
+
+      % my $i = 1;
+      % for my $pairs ($draw->pairs->@*) {
+      <tr>
+         % my $j = 1;
+         % my ($sum, $count);
+         <th>{{= $i }}</th>
+         % for my $pair ($pairs->@*) {
+            <td>{{= $pair if $i != $j }}</td>
+            % $sum += $pair * $j;
+            % $count += $pair;
+            % $j++;
+         % }
+         <td class="Draw-pairs--average">{{= sprintf "%.2f", $sum / $count }}</td>
+         <td class="Draw-pairs--count">{{= $count }}</td>
+         % $i++;
+      </tr>
+      % }
+   </table>
+</div>

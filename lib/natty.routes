@@ -6,6 +6,9 @@ POST /auth -> User.auth
 
 GET /player/ratings -> Player.ratings
 
+GET /draws -> Draw.list
+GET /draw/parse -> Draw.parse
+
 ANY / -> User.authd {
    POST /player/add -> Player.add
 

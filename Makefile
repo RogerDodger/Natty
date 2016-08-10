@@ -1,5 +1,6 @@
+SHELL = /bin/bash
+
 css_dir   = public/style
-sass_src  = $(css_dir)/scss/natty.scss
 sass_dest = $(css_dir)/natty.css
 
 js_url = /js
@@ -11,8 +12,9 @@ all: static draw
 static: css js
 
 css:
-	sass --sourcemap=none $(sass_src) $(sass_dest)
+	sass --sourcemap=none $(css_dir)/src/natty.scss $(sass_dest)
 	postcss --use autoprefixer -o $(sass_dest) $(sass_dest)
+	cat $(css_dir)/vendor/{normalize,font,toastr}*.css > $(css_dir)/vendor.css
 
 js: js-cat js-min
 
@@ -25,7 +27,7 @@ js-min:
 	uglifyjs --compress --mangle --screw-ie8 -p relative \
 	         --output         $(js_dir)/natty.min.js \
 	         --source-map     $(js_dir)/natty.min.js.map \
-	         --source-map-url      $(js_url)/natty.min.js.map \
+	         --source-map-url       $(js_url)/natty.min.js.map \
 	                          $(js_dir)/natty.js
 
 draw:

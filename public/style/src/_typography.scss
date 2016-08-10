@@ -1,0 +1,46 @@
+// =============================================================================
+// Fonts and such
+// =============================================================================
+
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+
+body {
+   font-family: 'Roboto', sans-serif;
+   font-weight: 400;
+}
+
+h1, h2, h3, h4 {
+   font-weight: 300;
+}
+
+h5, h6 {
+   font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+   margin-top: 1em;
+   margin-bottom: 0.7em;
+
+   &:first-child {
+      margin-top: 1.1rem;
+   }
+}
+
+b,
+strong,
+th {
+   font-weight: 500;
+}
+
+.small {
+   font-size: 0.9em;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Material+Icons);
+
+.icon {
+   font-family: "Material Icons";
+   font-style: normal;
+   font-weight: 400;
+}

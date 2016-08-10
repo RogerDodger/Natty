@@ -1,0 +1,91 @@
+.Draw-list--filters {
+   margin: 1em 0;
+}
+
+.Draw {
+   margin: 1em 0;
+}
+
+.Draw-code {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+
+   border: 1px solid #aaa;
+   border-radius: 0.25em;
+   color: #444;
+   padding: 0.25em;
+}
+
+.Draw-manual--field {
+   flex-grow: 1;
+   background: transparent;
+   border: 0;
+   padding: 0;
+}
+
+.Draw-expand,
+.Draw-reload {
+   cursor: pointer;
+}
+
+.Draw-breakdown {
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   flex-wrap: wrap;
+
+   &:not(:empty) {
+      // To cancel the flex-items' margins we should have -1em top, but we
+      // want a 1em margin-top anyway
+      margin-left: -1em;
+   }
+   & > * {
+      margin: 1em 0 0 1em;
+   }
+
+   td, th { padding: 0.2em; }
+}
+
+.Draw-timeline {
+   @each $color, $map in $team-colors {
+      td.#{$color} {
+         background-color: hsla(map_get($map, "hue"), map_get($map, "sat"), 50%, 1);
+      }
+   }
+
+   th {
+      white-space: pre;
+   }
+}
+
+.Draw-timeline,
+.Draw-pairs {
+   tr:first-child th {
+      min-height: 1.4em;
+      min-width: 1.4em;
+      max-width: 1.4em;
+      overflow: hidden;
+      padding-left: 0;
+      padding-right: 0;
+   }
+
+   overflow: auto;
+}
+
+.Draw-pairs {
+   td {
+      text-align: center;
+   }
+}
+
+.Draw-pairs--average,
+.Draw-pairs--count {
+   font-weight: 300;
+}
+
+.Draw-generator--code:empty::after {
+   color: #666;
+   content: "Click 'setup' to start";
+   display: inline;
+}

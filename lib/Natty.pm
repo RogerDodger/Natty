@@ -34,6 +34,8 @@ sub startup {
          namespace => 'draw',
          expires_in => '1d',
       ),
+
+      colors => [qw/red blue green orange cyan purple yellow pink/],
    });
 
    $self->sessions->default_expiration(86400);

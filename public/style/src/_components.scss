@@ -2,6 +2,8 @@
 // Context-independent components, mostly mixins
 // =============================================================================
 
+@import 'spinner';
+
 @mixin button-base {
    border-style: solid;
    border-width: 1px;
@@ -87,12 +89,18 @@
    @include divider;
 }
 
-@mixin box {
-   box-shadow: 0 0 3px #b6b6b6;
+@mixin box ($depth: 3px) {
+   box-shadow: 0 0 $depth #b6b6b6;
 }
 
 @mixin sheet {
    background-color: hsla(0, 0%, 98%, 1);
+}
+
+@mixin material {
+   @include box;
+   background-color: #fefefe;
+   padding: 0.01em 1em 0.3em 1em;
 }
 
 @mixin table-divider {
@@ -260,11 +268,6 @@
 }
 
 .noselect {
-   -webkit-touch-callout: none;
-   -webkit-user-select: none;
-   khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
    user-select: none;
 }
 
@@ -272,7 +275,7 @@
    label {
       color: #666;
       display: block;
-      font-weight: bold;
+      font-weight: 500;
       font-size: 0.85em;
       font-variant: small-caps;
       text-shadow: 0 1px 1px #fff;

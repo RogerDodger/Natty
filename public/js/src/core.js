@@ -1,5 +1,9 @@
 $(document).ajaxError(function (e, xhr) {
-   alert(xhr.status + " " + xhr.statusText);
+   if (typeof xhr.responseText === "string" && xhr.responseText.length) {
+      toastr.error(xhr.responseText);
+   } else {
+      toastr.error(xhr.status + " " + xhr.statusText);
+   }
 });
 
 // ===========================================================================
@@ -26,7 +30,7 @@ $(document).ready(function () {
       var $form = $row.find('form');
       var $player = $('.subbing');
 
-      q = q.then($player.size()
+      q = q.then($player.length
          ? $.ajax({
             method: "POST",
             url: "/team/sub",
@@ -102,7 +106,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
    var $form = $('.Fixture-form');
-   if (!$form.size()) {
+   if (!$form.length) {
       return;
    }
 
@@ -116,7 +120,7 @@ $(document).ready(function () {
          var $presetContainers = $('.Fixture-form--or, .Fixture-form--preset');
          var $presets = $('[name="preset"] option').addClass('hidden');
          var $validPresets = $presets.filter('[data-teams="' + n + '"]').removeClass('hidden');
-         if ($validPresets.size()) {
+         if ($validPresets.length) {
             $validPresets.get(0).selected = true;
             $presetContainers.removeClass('hidden');
          }

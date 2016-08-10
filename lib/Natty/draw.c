@@ -1,6 +1,9 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+
+#define min(a,b) (a) > (b) ? (b) : (a)
 
 int** make2darray (int x, int y) {
    int** p, i;
@@ -11,29 +14,55 @@ int** make2darray (int x, int y) {
    return p;
 }
 
-int teams, games, gamesPerTeam,
-    **cells, **pairs, *row,
-    cy, cx, x, y, i, j, n, s, p, c, r, t,
+int teams, opps, games, gamesPerTeam,
+    **cells, **pairs, **colors, *row,
+    cols, height, printed,
+    cy, cx, x, y, c, i, j, k, n, s, p, t,
     minPair, maxPair, maxPairLim,
     minColor, maxColor, maxColorLim;
 
-void unrollpairs () {
-   for (p = cx - 1; p >= 0; --p) {
-      j = cells[cy][p];
-      pairs[i][j] -= 1;
-      pairs[j][i] -= 1;
+long long int r;
+
+void printgrid() {
+   if (printed) {
+      printf("\033[%dA", height + 2);
+   }
+   else {
+      printed = 1;
+   }
+   // usleep(300 * 1000);
+
+   printf("%lli iters\n\n", r);
+   for (y = 0; y < height; ++y) {
+      for (c = 0; c < cols && y + c*height < games; ++c) {
+         row = cells[y + c*height];
+         for (x = 0; x < 3; ++x) {
+            printf("%02d ", row[x]);
+         }
+         printf("  ");
+      }
+      printf("\n");
    }
 }
 
 void trycell () {
    i = cells[cy][cx];
+   k = (cy + cx + (cx == 2)) % teams;
+   if (!k) k = teams;
 
-   if (i != 0) {
-      unrollpairs();
+   if (i == 0) {
+      i = 1 + k % teams;
+   }
+   else {
+      goto unrollpairs;
    }
 
-   for (i = i + 1; i <= teams; ++i, ++r) {
+   do {
       cells[cy][cx] = i;
+
+      if ((++r & 65535) == 65535) {
+         printgrid();
+      }
 
       // Check i is not already in this row
       for (x = cx - 1; x >= 0; --x) {
@@ -42,30 +71,22 @@ void trycell () {
          }
       }
 
-#ifdef NOREP
-      // Check i is not in the previous row
-      if (cy != 0) {
-         for (x = 2; x >= 0; --x) {
-            if (cells[cy-1][x] == i) {
-               goto next;
-            }
-         }
-      }
-#endif
-
       // Check i has not played this colour too many times
+      colors[i][cx]++;
+
       if (maxColorLim == 0) {
-         n = minColor - 1;
-         for (y = 0; y < cy; ++y) {
-            if (cells[y][cx] == i && --n < 0) {
-               goto next;
-            }
+         if (colors[i][cx] > minColor) {
+            goto unrollcolors;
          }
       }
       else {
-         // TODO
-         fprintf(stderr, "Not implemented\n");
-         exit(2);
+         n = maxColorLim;
+         row = colors[i];
+         for (t = 0; t < 3; ++t) {
+            if (row[t] > maxColor || (row[t] == maxColor && --n < 0)) {
+               goto unrollcolors;
+            }
+         }
       }
 
       // Check i has not played these opponents too many times
@@ -77,20 +98,9 @@ void trycell () {
 
       if (maxPairLim == 0) {
          for (p = cx - 1; p >= 0; --p) {
-            n = minPair - 1;
             j = cells[cy][p];
-            for (y = 0; y < cy; ++y) {
-               s = 0;
-               for (x = 0; x < 3; ++x) {
-                  c = cells[y][x];
-                  if (c == i || c == j) {
-                     if (s && --n < 0) {
-                        unrollpairs();
-                        goto next;
-                     }
-                     s = 1;
-                  }
-               }
+            if (pairs[i][j] > minPair) {
+               goto unrollpairs;
             }
          }
       }
@@ -100,34 +110,50 @@ void trycell () {
             j = cells[cy][p];
             row = pairs[j];
             for (t = 1; t <= teams; ++t) {
-               if (row[t] > maxPair || row[t] == maxPair && --n < 0) {
-                  unrollpairs();
-                  goto next;
+               if (row[t] > maxPair || (row[t] == maxPair && --n < 0)) {
+                  goto unrollpairs;
                }
             }
          }
       }
 
       // Constraints are satisfied
-      break;
+      cells[cy][cx] = i;
+      return;
+
+      unrollpairs:;
+         for (p = cx - 1; p >= 0; --p) {
+            j = cells[cy][p];
+            pairs[i][j] -= 1;
+            pairs[j][i] -= 1;
+         }
+
+      unrollcolors:;
+         colors[i][cx]--;
 
       next:;
-   }
+         // Tried everything, backtrack
+         if (i == k) {
+            cells[cy][cx] = 0;
+            return;
+         }
 
-   cells[cy][cx] = i > teams ? 0 : i;
+         i = 1 + i % teams;
+   } while (1);
 }
 
 int main (int argc, char **argv) {
-   teams = 7;
+   teams = 13;
    if (argc > 1) teams = atoi(argv[1]);
-   games = teams;
 
-   // Currently games = teams, so this isn't a problem
-   if (3 * games % teams) {
-      fprintf(stderr, "No possible fixture with balanced game count\n");
-      exit(1);
+   opps = teams - 1;
+   gamesPerTeam = opps % 2 ? opps : opps / 2;
+   games = gamesPerTeam * teams / 3;
+
+   if (teams == 5) {
+      gamesPerTeam *= 2;
+      games *= 2;
    }
-   gamesPerTeam = (3 * games) / teams;
 
    // If minColor == maxColor, teams play each color exactly minColor times.
    // Otherwise, they play maxColorLim colors maxColor times, and the rest of
@@ -141,47 +167,47 @@ int main (int argc, char **argv) {
    maxPairLim = (2 * gamesPerTeam) % (teams - 1);
    maxPair = minPair + (maxPairLim != 0);
 
+   printf("games: %d per team, %d total\n", gamesPerTeam, games);
+   printf("colors: %d + %d\n", minColor, maxColorLim);
+   printf("pairs: %d + %d\n\n", minPair, maxPairLim);
+
    // Cells are zeroed. To disambiguate an undefined cell from team 0, the
    // teams are 1-indexed. A cell of 0 is an unset cell.
    cells = make2darray(3, games);
    pairs = make2darray(teams + 1, teams + 1);
+   colors = make2darray(3, teams + 1);
+
+   height = min(games, 16);
+   cols = 1 + (games - 1) / height;
 
    // Backtracking algorithm
-   for (cy = 0; cy < games; ++cy) {
-      cx = 0;
-      while (cx < 3) {
+   for (cx = 0; cx < 3; ++cx) {
+      cy = 0;
+      while (cy < games) {
          trycell();
          if (cells[cy][cx]) {
-            ++cx;
+            ++cy;
          }
+         // No possible value for this cell, backtrack
          else {
-            // No possible value for this cell, backtrack
-            if (cx != 0) {
-               --cx;
+            if (cy != 0) {
+               --cy;
             }
-            else if (cy == 0) {
-               printf("%d iters\n\n", r);
+            else if (cx != 0) {
+               --cx;
+               cy = games - 1;
+            }
+            // Can't backtrack -- no solution
+            else {
+               printf("%lli iters\n\n", r);
                fprintf(stderr, "No solution\n");
                exit(0);
             }
-            else {
-               --cy;
-               cx = 2;
-            }
          }
       }
    }
 
-   printf("%d iters\n\n", r);
-
-   // Output fixture
-   for (cy = 0; cy < games; ++cy) {
-      row = cells[cy];
-      for (cx = 0; cx < 3; ++cx) {
-         printf("%d ", row[cx] - 1);
-      }
-      printf("\n");
-   }
+   printgrid();
    printf("\n");
    for (cy = 1; cy <= teams; ++cy) {
       row = pairs[cy];
