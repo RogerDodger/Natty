@@ -19,7 +19,7 @@
                      <span class="Site-logo--beta">alpha</span>
                   </li>
                   <li><a href="/player/ratings">Ratings</a>
-                  <li><a href="/draws">Draws</a>
+                  <li><a href="/draw/teams">Draw</a>
                </ul>
 
                <ul class="Site-header--user">

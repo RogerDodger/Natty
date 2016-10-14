@@ -15,4 +15,8 @@ sub parse ($c) {
    $c->render(format => 'html', template => 'draw/breakdown');
 }
 
+sub teams ($c) {
+   $c->render(format => 'html', tempalte => 'draw/teams');
+}
+
 1;

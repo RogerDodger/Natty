@@ -1,0 +1,40 @@
+% layout 'default';
+<div class="Team--Balancer">
+   <textarea class="TB--Input" name="players" placeholder=
+      "Player1&nbsp;1.23                    Player2&nbsp;0.95">Meerkat 1.48
+Vahn 1.32
+Fuggen 1.29
+Exile 1.27
+Ninjajim 1.24
+Azrael 1.25
+Rubimental 1.2
+Wall 1.16
+crow 1.13
+Soulless 1.12
+Spak 1.1
+Moo 1.1
+Boneless 1.08
+z0rc 1.06
+Wolfie 1.06
+Pixie 1.04
+BrehBreh 1.04
+Fancyboy 1.02
+Sheldon .97
+Gizmo .95
+Recluse .88
+Hitachi .85
+Anakin .81
+ProNoob .78
+Pyle .73
+Stormboy .71
+Hilahoo .64
+JudgeFudge .61
+Fudge .46
+Sai_Bot .36
+</textarea>
+   <button class="TB--Add">Add players</button>
+
+   <div class="TB--Teams"></div>
+
+   <button class="TB--Balance hidden">Balance teams</button>
+</div>

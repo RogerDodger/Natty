@@ -6,7 +6,7 @@ POST /auth -> User.auth
 
 GET /player/ratings -> Player.ratings
 
-GET /draws -> Draw.list
+GET /draw/teams -> Draw.teams
 GET /draw/parse -> Draw.parse
 
 ANY / -> User.authd {

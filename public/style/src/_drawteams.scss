@@ -1,0 +1,87 @@
+.Team--Balancer {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+
+   & > * + * {
+      margin-top: 1em;
+   }
+}
+
+
+.TB--Input {
+   max-width: 12em;
+   width: 100vh;
+}
+
+.TB--Teams {
+   display: flex;
+   flex-flow: row wrap;
+   justify-content: center;
+
+   margin-left: -1.3em;
+
+   & > * {
+      margin-top: 1em;
+      margin-left: 1.3em;
+   }
+}
+
+.TB--Team--Sum {
+   text-align: center;
+   font-size: 1.3em;
+}
+
+.TB--Team--Player {
+   display: flex;
+   flex-direction: row;
+   position: relative;
+
+   padding: 0.3em 0.3em 0.3em 0.8em;
+   border: 0.05em solid hsla(0, 0, 70%, 1);
+   font-size: 1.2em;
+
+   & + * {
+      margin-top: -0.05em;
+   }
+}
+
+.TB--TP--Name {
+   flex-grow: 1;
+}
+
+.TB--TP--Rating,
+.TB--TP--Remove {
+   margin-left: 0.4em;
+}
+
+.TB--TP--Remove .icon {
+   font-size: 0.8em;
+}
+
+.TB--TP--Lock {
+   $zoom: 0.8;
+   $radius: 1.2em;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   background-color: white;
+   border: 0.05em / $zoom solid hsla(0, 0, 70%, 1);
+   border-radius: $radius / $zoom;
+   font-size: $zoom * 1em;
+   height: $radius / $zoom;
+   width: $radius / $zoom;
+   position: absolute;
+   left: -0.5 * $radius / $zoom;
+
+   .icon {
+      position: relative;
+      top: -0.05em;
+   }
+
+   &:hover {
+      box-shadow: 0 0 0.1em 0.05em hsla(0, 0%, 80%, 1);
+      cursor: pointer;
+   }
+}

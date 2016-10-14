@@ -12,9 +12,9 @@ all: static draw
 static: css js
 
 css:
-	sass --sourcemap=none $(css_dir)/src/natty.scss $(sass_dest)
+	sassc $(css_dir)/src/natty.scss $(sass_dest)
 	postcss --use autoprefixer -o $(sass_dest) $(sass_dest)
-	cat $(css_dir)/vendor/{normalize,font,toastr}*.css > $(css_dir)/vendor.css
+	cat $(css_dir)/vendor/*.css > $(css_dir)/vendor.css
 
 js: js-cat js-min
 

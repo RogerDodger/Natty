@@ -36,7 +36,7 @@ sub add {
          my $player = $players->search({ tag_normalised => fc $_ })->first
             or return $c->stash->{error_msg} = "Player $_ not found!";
 
-         push $team, $player;
+         push @$team, $player;
       }
    }
 

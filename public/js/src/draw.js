@@ -150,7 +150,7 @@ $(document).ready(function () {
    });
 
    var calcPlays = function () {
-      var i, j, game, plays = new Array(teams);
+      var i, j, plays = new Array(teams);
       for (i = 0; i < teams; ++i) {
          plays[i] = new Array(teams);
          for (j = 0; j < teams; ++j) {
@@ -172,15 +172,15 @@ $(document).ready(function () {
 
    var scoreTimeOnSite = function () {
       return 0;
-      var t, i, j, target = 2*gamesPerTeam - 1, score = 0;
+      // var t, i, j, target = 2*gamesPerTeam - 1, score = 0;
 
-      for (t = 0; t < teams; ++t) {
-         for (i = 0; grid[i].indexOf(t) === -1; ++i);
-         for (j = grid.length - 1; grid[j].indexOf(t) === -1; --j);
-         score += Math.pow(Math.max(j - i - target, 0), 2);
-      }
+      // for (t = 0; t < teams; ++t) {
+      //    for (i = 0; grid[i].indexOf(t) === -1; ++i);
+      //    for (j = grid.length - 1; grid[j].indexOf(t) === -1; --j);
+      //    score += Math.pow(Math.max(j - i - target, 0), 2);
+      // }
 
-      return score;
+      // return score;
    };
 
    var scoreRobin = function () {
@@ -202,9 +202,9 @@ $(document).ready(function () {
       return score;
    };
 
-   var scoreCascade = function () {
+   // var scoreCascade = function () {
 
-   };
+   // };
 
    var goTick = function () {
       var i, x1, x2, y, team1, team2, newScore,

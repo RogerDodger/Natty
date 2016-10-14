@@ -71,11 +71,9 @@ th {
 
 .spinner {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center; }
 
@@ -99,6 +97,7 @@ th {
   100% {
     -webkit-transform: rotate(270deg);
             transform: rotate(270deg); } }
+
 .spinner-path {
   stroke-dasharray: 187;
   stroke-dashoffset: 0;
@@ -130,6 +129,7 @@ th {
     stroke: #1B9A59; }
   100% {
     stroke: #4285F4; } }
+
 @-webkit-keyframes spinner-dash {
   0% {
     stroke-dashoffset: 187; }
@@ -141,6 +141,7 @@ th {
     stroke-dashoffset: 187;
     -webkit-transform: rotate(450deg);
             transform: rotate(450deg); } }
+
 @keyframes spinner-dash {
   0% {
     stroke-dashoffset: 187; }
@@ -152,6 +153,7 @@ th {
     stroke-dashoffset: 187;
     -webkit-transform: rotate(450deg);
             transform: rotate(450deg); } }
+
 .Divider {
   display: block;
   background: -webkit-linear-gradient(left, transparent 0%, #999999 10%, #999999 90%, transparent 100%);
@@ -168,7 +170,8 @@ th {
       padding-left: 1.6em; }
     .Table > tbody > tr > td:last-child {
       padding-right: 1.6em; }
-  .Table > thead, .Table > tbody {
+  .Table > thead,
+  .Table > tbody {
     border: 1px solid #d0dce2; }
   .Table.sortable > thead > tr > th:not(:empty):hover {
     cursor: pointer; }
@@ -186,7 +189,8 @@ th {
         padding-left: 1.2em; }
       .Table > thead > tr > th:last-child {
         padding-right: 1.2em; }
-  .Table.grid > thead > tr > th, .Table.grid > tbody > tr > td {
+  .Table.grid > thead > tr > th,
+  .Table.grid > tbody > tr > td {
     border-right: 1px solid #d0dce2;
     border-left: 1px solid #d0dce2; }
   .Table.grid > thead > tr > th {
@@ -286,34 +290,30 @@ th {
   font-size: 0.85em;
   font-variant: small-caps;
   text-shadow: 0 1px 1px #fff; }
+
 .Form input[type="text"], .Fixture-form input[type="text"],
-.Form input[type="password"],
-.Fixture-form input[type="password"],
-.Form input[type="email"],
-.Fixture-form input[type="email"],
-.Form input[type="url"],
-.Fixture-form input[type="url"],
-.Form input[type="number"],
-.Fixture-form input[type="number"],
-.Form input[type="search"],
-.Fixture-form input[type="search"],
-.Form input[type="datetime"],
-.Fixture-form input[type="datetime"],
-.Form textarea,
-.Fixture-form textarea,
-.Form select,
-.Fixture-form select {
+.Form input[type="password"], .Fixture-form input[type="password"],
+.Form input[type="email"], .Fixture-form input[type="email"],
+.Form input[type="url"], .Fixture-form input[type="url"],
+.Form input[type="number"], .Fixture-form input[type="number"],
+.Form input[type="search"], .Fixture-form input[type="search"],
+.Form input[type="datetime"], .Fixture-form input[type="datetime"],
+.Form textarea, .Fixture-form textarea,
+.Form select, .Fixture-form select {
   background: #fcfcfc;
   border: 1px solid #aaa;
   padding: 0.25em;
   border-radius: 0.25em;
   width: 100%; }
+
 .Form input[type="checkbox"], .Fixture-form input[type="checkbox"] {
   vertical-align: middle; }
   .Form input[type="checkbox"] + label, .Fixture-form input[type="checkbox"] + label {
     display: inline; }
+
 .Form textarea, .Fixture-form textarea {
   margin-bottom: 0; }
+
 .Form input[type="submit"], .Fixture-form input[type="submit"] {
   border-style: solid;
   border-width: 1px;
@@ -339,6 +339,7 @@ th {
     color: #223022; }
     .Form input[type="submit"]:disabled:hover, .Fixture-form input[type="submit"]:disabled:hover, .Form input[type="submit"].selected:hover, .Fixture-form input[type="submit"].selected:hover {
       cursor: default; }
+
 .Form *[disabled], .Fixture-form *[disabled] {
   background-color: #e6e6e6; }
 
@@ -348,6 +349,7 @@ th {
 
 .Form-group:first-of-type > .Form-item {
   margin-top: 0; }
+
 .Form-group > div {
   float: left;
   width: 100%; }
@@ -358,14 +360,19 @@ th {
   @media (max-width: 40rem) {
     .Form-group > div {
       padding: 0 !important; } }
+
 .Form-group.two > div {
   width: 50%; }
+
 .Form-group.three > div {
   width: 33.33%; }
+
 .Form-group.four > div {
   width: 25%; }
+
 .Form-group.five > div {
   width: 20%; }
+
 @media (max-width: 40rem) {
   .Form-group > div {
     width: 100% !important;
@@ -394,6 +401,7 @@ th {
 
 .Breakdown-row td {
   padding-top: 0 !important; }
+
 .Breakdown-row table {
   font-size: 0.9em; }
 
@@ -547,17 +555,14 @@ body {
 
 .Site-content {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center; }
   .Site-content > * {
-    -webkit-flex-basis: 54em;
-        -ms-flex-preferred-size: 54em;
-            flex-basis: 54em;
+    -ms-flex-preferred-size: 54em;
+        flex-basis: 54em;
     max-width: 100vw; }
 
 .Admin-panel {
@@ -631,7 +636,8 @@ body {
       padding-left: 1.6em; }
     .Players > tbody > tr > td:last-child {
       padding-right: 1.6em; }
-  .Players > thead, .Players > tbody {
+  .Players > thead,
+  .Players > tbody {
     border: 1px solid #d0dce2; }
   .Players.sortable > thead > tr > th:not(:empty):hover {
     cursor: pointer; }
@@ -649,7 +655,8 @@ body {
         padding-left: 1.2em; }
       .Players > thead > tr > th:last-child {
         padding-right: 1.2em; }
-  .Players.grid > thead > tr > th, .Players.grid > tbody > tr > td {
+  .Players.grid > thead > tr > th,
+  .Players.grid > tbody > tr > td {
     border-right: 1px solid #d0dce2;
     border-left: 1px solid #d0dce2; }
   .Players.grid > thead > tr > th {
@@ -939,15 +946,12 @@ body {
 
 .Draw-code {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   border: 1px solid #aaa;
@@ -957,7 +961,6 @@ body {
 
 .Draw-manual--field {
   -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
   background: transparent;
@@ -970,19 +973,15 @@ body {
 
 .Draw-breakdown {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-around;
-      -ms-flex-pack: distribute;
-          justify-content: space-around;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap; }
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; }
   .Draw-breakdown:not(:empty) {
     margin-left: -1em; }
   .Draw-breakdown > * {
@@ -992,22 +991,31 @@ body {
 
 .Draw-timeline td.red {
   background-color: #bf4040; }
+
 .Draw-timeline td.blue {
   background-color: #4040bf; }
+
 .Draw-timeline td.green {
   background-color: #40bf40; }
+
 .Draw-timeline td.orange {
   background-color: #bf8040; }
+
 .Draw-timeline td.cyan {
   background-color: #4095bf; }
+
 .Draw-timeline td.purple {
   background-color: #8040bf; }
+
 .Draw-timeline td.yellow {
   background-color: #bfbf40; }
+
 .Draw-timeline td.pink {
   background-color: #bf406a; }
+
 .Draw-timeline td.grey {
   background-color: gray; }
+
 .Draw-timeline th {
   white-space: pre; }
 
@@ -1034,3 +1042,91 @@ body {
   color: #666;
   content: "Click 'setup' to start";
   display: inline; }
+
+.Team--Balancer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+  .Team--Balancer > * + * {
+    margin-top: 1em; }
+
+.TB--Input {
+  max-width: 12em;
+  width: 100vh; }
+
+.TB--Teams {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+      flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-left: -1.3em; }
+  .TB--Teams > * {
+    margin-top: 1em;
+    margin-left: 1.3em; }
+
+.TB--Team--Sum {
+  text-align: center;
+  font-size: 1.3em; }
+
+.TB--Team--Player {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  position: relative;
+  padding: 0.3em 0.3em 0.3em 0.8em;
+  border: 0.05em solid #b3b3b3;
+  font-size: 1.2em; }
+  .TB--Team--Player + * {
+    margin-top: -0.05em; }
+
+.TB--TP--Name {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.TB--TP--Rating,
+.TB--TP--Remove {
+  margin-left: 0.4em; }
+
+.TB--TP--Remove .icon {
+  font-size: 0.8em; }
+
+.TB--TP--Lock {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: white;
+  border: 0.0625em solid #b3b3b3;
+  border-radius: 1.5em;
+  font-size: 0.8em;
+  height: 1.5em;
+  width: 1.5em;
+  position: absolute;
+  left: -0.75em; }
+  .TB--TP--Lock .icon {
+    position: relative;
+    top: -0.05em; }
+  .TB--TP--Lock:hover {
+    box-shadow: 0 0 0.1em 0.05em #cccccc;
+    cursor: pointer; }
