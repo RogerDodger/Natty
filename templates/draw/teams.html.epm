@@ -1,5 +1,7 @@
 % layout 'default';
+% title 'Team Balancer';
 <div class="Team--Balancer">
+   <h2>Team Balancer</h2>
    <textarea class="TB--Input" name="players" placeholder=
       "Player1&nbsp;1.23                    Player2&nbsp;0.95">Meerkat 1.48
 Vahn 1.32
