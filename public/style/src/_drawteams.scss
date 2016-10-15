@@ -37,7 +37,7 @@
    flex-direction: row;
    position: relative;
 
-   padding: 0.3em 0.3em 0.3em 0.8em;
+   padding: 0.3em 0.8em;
    border: 0.05em solid hsla(0, 0, 70%, 1);
    font-size: 1.2em;
 
@@ -50,13 +50,8 @@
    flex-grow: 1;
 }
 
-.TB--TP--Rating,
-.TB--TP--Remove {
-   margin-left: 0.4em;
-}
-
-.TB--TP--Remove .icon {
-   font-size: 0.8em;
+.TB--TP--Rating {
+   margin-left: 0.6em;
 }
 
 .TB--TP--Lock {

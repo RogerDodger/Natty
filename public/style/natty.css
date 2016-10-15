@@ -1088,7 +1088,7 @@ body {
       -ms-flex-direction: row;
           flex-direction: row;
   position: relative;
-  padding: 0.3em 0.3em 0.3em 0.8em;
+  padding: 0.3em 0.8em;
   border: 0.05em solid #b3b3b3;
   font-size: 1.2em; }
   .TB--Team--Player + * {
@@ -1099,12 +1099,8 @@ body {
       -ms-flex-positive: 1;
           flex-grow: 1; }
 
-.TB--TP--Rating,
-.TB--TP--Remove {
-  margin-left: 0.4em; }
-
-.TB--TP--Remove .icon {
-  font-size: 0.8em; }
+.TB--TP--Rating {
+  margin-left: 0.6em; }
 
 .TB--TP--Lock {
   display: -webkit-box;

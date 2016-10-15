@@ -60,6 +60,15 @@ Date.prototype.getShortMonth = function () {
    return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][this.getMonth()];
 };
 
+/* public/js/src/lib/element.js */;
+if (!('remove' in Element.prototype)) {
+    Element.prototype.remove = function() {
+        if (this.parentNode) {
+            this.parentNode.removeChild(this);
+        }
+    };
+}
+
 /* public/js/src/lib/number.js */;
 Number.prototype.zeropad = function(n) {
    var str = "" + this;
@@ -70,6 +79,16 @@ Number.prototype.zeropad = function(n) {
    }
    return pad + str;
 };
+
+/* public/js/src/lib/strings.js */;
+String.prototype.zeropad = function (n) {
+   var s = this;
+   var l = n - s.length;
+   while (l-- > 0) {
+      s = s + '0';
+   }
+   return s;
+}
 
 /* public/js/src/core.js */;
 $(document).ajaxError(function (e, xhr) {
@@ -543,6 +562,7 @@ $(document).ready(function () {
 
    var drake = dragula(containers, {
       direction: 'vertical',
+      removeOnSpill: true,
       moves: function (el, source, handle, sibling) {
          return el.classList.contains('TB--Team--Player');
       },
@@ -580,7 +600,7 @@ $(document).ready(function () {
       }
 
       if (dom && 'el' in team) {
-         team.el.firstChild.innerHTML = team.sum.toFixed(2);
+         team.el.firstChild.innerHTML = team.sum.toFixed(2).zeropad(4);
       }
    }
 
@@ -603,7 +623,7 @@ $(document).ready(function () {
 
          var sum = document.createElement('div');
          sum.className = 'TB--Team--Sum';
-         sum.innerHTML = team.sum.toFixed(2);
+         sum.innerHTML = team.sum.toFixed(2).zeropad(4);
          teamel.insertAdjacentElement('beforeend', sum);
 
          for (var j = 0; j < players.length; ++j) {
@@ -621,13 +641,9 @@ $(document).ready(function () {
 
             var score = document.createElement('div');
             score.className = 'TB--TP--Rating';
-            score.innerHTML = players[j].rating;
+            score.innerHTML = players[j].rating.toFixed(2).zeropad(4);
 
-            var close = document.createElement('div');
-            close.className = 'TB--TP--Remove';
-            close.insertAdjacentHTML('afterbegin', '<i class="icon">close</i>');
-
-            [lock, name, score, close].forEach(function (e) {
+            [lock, name, score].forEach(function (e) {
                playerel.insertAdjacentElement('beforeend', e);
             });
 
@@ -686,14 +702,28 @@ $(document).ready(function () {
       icon.innerHTML = player.locked ? 'lock' : 'lock_open';
    });
 
-   drake.on('drop', function (el, target, source, sibling) {
-      // Pop player from old team
+   var removePlayer = function (el, source) {
       var splayers = source.tobj.players;
       for (var i = 0; i < splayers.length; ++i) {
          if (splayers[i] === el.pobj) {
             splayers.splice(i, 1);
          }
       }
+
+      if (splayers.length == 0) {
+         teams = teams.filter(function (t) {
+            return t.el !== source;
+         });
+         source.remove();
+      }
+
+      recalcSum(source.tobj);
+   }
+
+   drake.on('drop', function (el, target, source, sibling) {
+      // Pop player from old team
+      removePlayer(el, source);
+
       // Push player to new team
       var tplayers = target.getElementsByClassName('TB--Team--Player');
       for (var i = 0; i < tplayers.length; ++i) {
@@ -702,7 +732,11 @@ $(document).ready(function () {
          }
       }
 
-      recalcSums();
+      recalcSum(target.tobj);
+   });
+
+   drake.on('remove', function (el, container, source) {
+      removePlayer(el, source);
    });
 
    $balance.on('click', function () {
