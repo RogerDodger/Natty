@@ -10,6 +10,7 @@ my @production = qw/
    Mojolicious::Plugin::PlainRoutes
    DBIx::Class
    DBIx::Class::FilterColumn
+   SQL::Translator
    IO::Socket::SSL
    Bytes::Random::Secure
    Crypt::Eksblowfish::Bcrypt
@@ -17,6 +18,8 @@ my @production = qw/
    IO::Prompt
    DateTime
    DateTime::Format::RFC3339
+   DateTime::Format::Human::Duration
+   Cache::FastMmap
    CHI
    CHI::Driver::FastMmap
 /;

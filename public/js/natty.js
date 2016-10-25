@@ -552,7 +552,10 @@ $(document).ready(function () {
    var $textarea = $('.TB--Input');
    var $add = $('.TB--Add');
    var $balance = $('.TB--Balance');
+   var $clear = $('.TB--Clear');
    var $teams = $('.TB--Teams');
+   var $cap = $('.TB--Cap');
+   var sumCap = false;
 
    if (!$textarea.length) {
       return;
@@ -582,21 +585,23 @@ $(document).ready(function () {
          team.sum += e;
       });
 
-      // The team's rating is the sum of its 5 best player's ratings, since
-      // that is the strongest the team can be. Given that teams with more
-      // than 5 players probably have 6 or 7, its quickest to simply subtract
-      // the minimums off.
-      //
-      // Algorithm resembles insertion sort.
-      for (var x = 5; x < ratings.length; ++x) {
-         var min = 0;
-         for (var i = 1; i < ratings.length; ++i) {
-            if (ratings[i] < ratings[min]) {
-               min = i;
+      if (sumCap) {
+         // The team's rating is the sum of its 5 best player's ratings, since
+         // that is the strongest the team can be. Given that teams with more
+         // than 5 players probably have 6 or 7, its quickest to simply
+         // subtract the minimums off.
+
+         // Algorithm resembles insertion sort.
+         for (var x = 5; x < ratings.length; ++x) {
+            var min = 0;
+            for (var i = 1; i < ratings.length; ++i) {
+               if (ratings[i] < ratings[min]) {
+                  min = i;
+               }
             }
+            team.sum -= ratings[min];
+            ratings[min] = +Infinity;
          }
-         team.sum -= ratings[min];
-         ratings[min] = +Infinity;
       }
 
       if (dom && 'el' in team) {
@@ -665,7 +670,54 @@ $(document).ready(function () {
       else {
          $balance.addClass('hidden');
       }
+
+      if (teams.length) {
+         $clear.add($cap).removeClass('hidden');
+      }
+      else {
+         $clear.add($cap).addClass('hidden');
+      }
    };
+
+   var saveState = function () {
+      if (typeof localStorage === 'undefined') {
+         return;
+      }
+
+      var shallow = teams.map(function (e) {
+         return {
+            sum: e.sum,
+            players: e.players.map(function (p) {
+               return {
+                  name: p.name,
+                  rating: p.rating,
+                  locked: p.locked
+               };
+            })
+         };
+      })
+
+      localStorage.setItem('balancerteams', JSON.stringify(shallow));
+   };
+
+   var loadState = function () {
+      if (typeof localStorage === 'undefined') {
+         return;
+      }
+
+      if (localStorage.getItem('balancerteams')) {
+         teams = JSON.parse(localStorage.getItem('balancerteams'));
+      }
+
+      redrawTeams();
+   };
+
+   loadState();
+
+   $cap.find('input').click(function () {
+      sumCap = this.checked;
+      recalcSums();
+   });
 
    $add.click(function () {
       var i = 0, matches;
@@ -690,6 +742,7 @@ $(document).ready(function () {
       $textarea.val('');
 
       recalcSums();
+      saveState();
       redrawTeams();
    });
 
@@ -700,6 +753,7 @@ $(document).ready(function () {
 
       player.locked = !player.locked;
       icon.innerHTML = player.locked ? 'lock' : 'lock_open';
+      saveState();
    });
 
    var removePlayer = function (el, source) {
@@ -736,7 +790,16 @@ $(document).ready(function () {
    });
 
    drake.on('remove', function (el, container, source) {
+      toastr.warning(
+         "Player removed: " + el.pobj.name + " " + el.pobj.rating);
       removePlayer(el, source);
+      saveState();
+   });
+
+   $clear.on('click', function () {
+      teams = [];
+      saveState();
+      redrawTeams();
    });
 
    $balance.on('click', function () {
@@ -789,7 +852,7 @@ $(document).ready(function () {
          }
       }
 
-      for (i = 0; i < 10000; ++i) {
+      for (i = 0; i < 50000; ++i) {
          cell1 = cells[Math.floor(Math.random() * cells.length)];
          cell2 = cells[Math.floor(Math.random() * cells.length)];
 
@@ -837,6 +900,7 @@ $(document).ready(function () {
          });
       });
 
+      saveState();
       redrawTeams();
    });
 });
